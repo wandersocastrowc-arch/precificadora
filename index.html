@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Precificadora · iFood &amp; Marketplaces — FinLab.</title>
 <meta name="description" content="Precificadora por canal para iFood, marketplaces e delivery. Calcule custo, preço e margem de contribuição. Por FinLab.">
 <link rel="icon" type="image/png" href="icon.png">
@@ -29,7 +29,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text);background:var(--bg);line-height:1.5;font-size:15px}
+  color:var(--text);background:var(--bg);line-height:1.5;font-size:15px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
 a{color:var(--amber-d);text-decoration:none}
 a:hover{text-decoration:underline}
@@ -65,6 +65,7 @@ input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-r
 input:focus,select:focus{outline:2px solid var(--amber);border-color:var(--amber)}
 input.in{background:var(--amber-bg);border-color:#2f6f53}
 input[type=number]{text-align:right}
+input,select,textarea{-webkit-user-select:text;user-select:text}
 .w-money{max-width:120px}.w-pct{max-width:84px}.w-qty{max-width:74px}
 .field{display:flex;align-items:center;gap:10px;margin:8px 0}
 .field label{flex:1;font-weight:600}
@@ -101,7 +102,7 @@ nav.tabs button{flex:0 0 auto;white-space:nowrap;padding:12px 11px;font-size:13p
 main{padding:14px 12px 48px}.panel h2{font-size:21px}.card{padding:14px}
 th,td{padding:7px 6px;font-size:13px}
 .w-money{max-width:88px}.w-pct{max-width:60px}.w-qty{max-width:56px}
-.wide{min-width:660px}
+.wide{min-width:480px}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:22px}.stepnav .btn{flex:1;justify-content:center}
@@ -224,10 +225,12 @@ svg text{font-family:inherit}
     <div class="card"><h3>Embalagem e descartáveis</h3>
       <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button></div>
+    <div class="field" style="max-width:480px"><label>Peso da unidade (kg) <span style="color:var(--muted);font-weight:400">— opcional, p/ venda por peso</span></label><input class="in" type="number" step="0.001" id="ficha-peso" oninput="state.ficha.pesoKg=+this.value;render()"></div>
     <div class="statgrid">
       <div class="stat"><div class="v amber" id="s-insumos">R$ 0,00</div><div class="k">Subtotal insumos</div></div>
       <div class="stat"><div class="v amber" id="s-emb">R$ 0,00</div><div class="k">Subtotal embalagem</div></div>
       <div class="stat" style="background:var(--amber)"><div class="v" style="color:var(--deep)" id="s-custovar">R$ 0,00</div><div class="k" style="color:#06351F">Custo variável unitário</div></div>
+      <div class="stat"><div class="v amber" id="s-custokg">—</div><div class="k">Custo por kg</div></div>
     </div>
   </section>
   <section class="panel" id="p-canal">
@@ -241,7 +244,7 @@ svg text{font-family:inherit}
       <div class="field"><label>Tributo sobre a venda (%) <span style="color:var(--muted);font-weight:400">(MEI: deixe zerado, lance o DAS no custo fixo)</span></label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
     <div class="card"><h3>Canais</h3><div class="tscroll">
-      <table class="wide"><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Quebra %</th><th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
+      <table class="wide"><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Quebra %</th><th class="num">Preço sugerido</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
       </div><button class="btn ghost sm" style="margin-top:10px" onclick="addCanal()">+ Adicionar canal</button></div>
     <div class="note red">⚠ Repare: o custo fixo não aparece neste preço. Ele é coberto pela soma das contribuições — veja o Ponto de Equilíbrio.</div>
   </section>
@@ -272,7 +275,10 @@ svg text{font-family:inherit}
     <div class="row2">
       <div>
         <div class="card">
-          <div class="field"><label>Preço de venda (R$)</label><input class="in" type="number" step="0.5" id="det-preco" oninput="state.detalhe.preco=+this.value;renderDetalhe();save()"></div>
+          <div class="field"><label>Calcular por peso (kg)?</label><input type="checkbox" id="det-porpeso" style="width:auto" onchange="state.detalhe.porPeso=this.checked;syncDetPeso();renderDetalhe();save()"></div>
+          <div class="field" id="row-preco"><label>Preço de venda (R$)</label><input class="in" type="number" step="0.5" id="det-preco" oninput="state.detalhe.preco=+this.value;renderDetalhe();save()"></div>
+          <div class="field" id="row-precokg" style="display:none"><label>Preço por kg (R$)</label><input class="in" type="number" step="0.5" id="det-precokg" oninput="state.detalhe.precoKg=+this.value;renderDetalhe();save()"></div>
+          <div class="field" id="row-pesokg" style="display:none"><label>Peso (kg)</label><input class="in" type="number" step="0.001" id="det-pesokg" oninput="state.detalhe.pesoKg=+this.value;renderDetalhe();save()"></div>
           <div class="field"><label>Tempo de produção (horas)</label><input class="in" type="number" step="0.5" id="det-tempo" oninput="state.detalhe.tempoH=+this.value;renderDetalhe();save()"></div>
           <div class="field"><label>Desconto no Pix (%)</label><input class="in" type="number" step="0.5" id="det-pix" oninput="state.detalhe.pix=+this.value;renderDetalhe();save()"></div>
         </div>
@@ -300,7 +306,7 @@ const pct=n=>isFinite(n)?(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1
 const num=n=>isFinite(n)?Math.round(n).toLocaleString("pt-BR"):"—";
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 function baseApps(){return{profile:"apps",
-  ficha:{produto:"Hambúrguer Artesanal (combo)",
+  ficha:{produto:"Hambúrguer Artesanal (combo)",pesoKg:0,
     insumos:[["Pão brioche","un",1,1.20],["Hambúrguer 120g","un",1,3.50],["Queijo cheddar","fatia",2,0.45],["Bacon","g",20,0.06],["Molho da casa","porção",1,0.40],["Alface e tomate","porção",1,0.30],["Batata (acompanha)","g",120,0.012]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
     embalagem:[["Embalagem do combo","un",1,1.10],["Sachê de ketchup","un",2,0.18],["Guardanapo","un",2,0.05],["Sacola delivery","un",1,0.25],["Talher descartável","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
   canais:{margem:35,tributo:0,
@@ -308,11 +314,11 @@ function baseApps(){return{profile:"apps",
   pe:{contribManual:null,ticket:32,
     fixo:[["Aluguel",4500],["Energia e água",1200],["Internet e telefone",250],["Salários + encargos",8000],["Pró-labore (dono)",4000],["Contador",600],["Softwares e apps",300],["Mensalidade iFood",150],["Imposto / DAS (se MEI)",0],["Marketing fixo",700],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
   rateio:{markup:30,preco:32,vol:[1500,1000,500]},
-  detalhe:{preco:99.90,tempoH:3,pix:5,
+  detalhe:{preco:99.90,tempoH:3,pix:5,porPeso:false,precoKg:45,pesoKg:1.5,
     deducoes:[["Imposto","%",12,false],["Taxa cartão","%",3,false],["Energia elétrica","%",0.3,true],["Filamento / insumo","%",3.3,true],["Embalagem","%",1.5,true]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
 };}
 function basePadaria(){return{profile:"padaria",
-  ficha:{produto:"Coxinha de frango (unidade)",
+  ficha:{produto:"Coxinha de frango (unidade)",pesoKg:0,
     insumos:[["Massa (batata+farinha)","un",1,0.55],["Frango desfiado","g",40,0.018],["Tempero/cebola","porção",1,0.10],["Farinha de rosca","g",15,0.01],["Óleo (fritura, rateio)","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
     embalagem:[["Guardanapo","un",1,0.03],["Saquinho/embalagem","un",1,0.07]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
   canais:{margem:45,tributo:0,
@@ -320,7 +326,7 @@ function basePadaria(){return{profile:"padaria",
   pe:{contribManual:null,ticket:18,
     fixo:[["Aluguel",3500],["Energia e gás",1500],["Internet e telefone",200],["Salários (padeiro/atendente)",6000],["Pró-labore (dono)",3500],["Contador",500],["Embalagens/limpeza",400],["Imposto / DAS (se MEI)",0],["Marketing local",400],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
   rateio:{markup:60,preco:9,vol:[2500,1500,800]},
-  detalhe:{preco:12,tempoH:0.4,pix:0,
+  detalhe:{preco:12,tempoH:0.4,pix:0,porPeso:false,precoKg:45,pesoKg:1.5,
     deducoes:[["Imposto","%",6,false],["Taxa cartão","%",2,false],["Gás / forno","%",2,true],["Ingredientes","%",30,true],["Embalagem","%",4,true]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
 };}
 function defaults(p){return p==="padaria"?basePadaria():baseApps();}
@@ -339,8 +345,8 @@ function subEmb(){return state.ficha.embalagem.reduce((t,i)=>t+(+i.qtd||0)*(+i.c
 function canalCalc(c){const cv=custoVar(),m=state.canais.margem/100,tr=state.canais.tributo/100;
   const com=c.comissao/100,pg=c.pagto/100,er=c.erro/100;
   const carga=com+pg+er+tr+m; const sug=carga<1?cv/(1-carga):NaN;
-  const contrib=(+c.praticado||0)*(1-(com+pg+er+tr))-cv;
-  const contribPct=(+c.praticado>0)?contrib/c.praticado:NaN;
+  const contrib=isFinite(sug)?sug*m:NaN;
+  const contribPct=isFinite(sug)?m:NaN;
   return{sug,contrib,contribPct};}
 function fixoTotal(){return state.pe.fixo.reduce((t,f)=>t+(+f.valor||0),0);}
 function contribAuto(){const xs=state.canais.lista.map(c=>canalCalc(c).contrib).filter(isFinite);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:NaN;}
@@ -356,15 +362,12 @@ function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML
       <td><button class="iconbtn" title="Remover" onclick="delRow('${key}',${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function canalRows(){const tb=document.getElementById("tb-canais");tb.innerHTML="";
-  state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);let cls=r.contribPct>=0.30?"g":r.contribPct>=0.15?"a":"r";const tr=document.createElement("tr");
+  state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(c.nome)}" data-c="${i}" data-f="nome"></td>
       <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.comissao}" data-c="${i}" data-f="comissao"></td>
       <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.pagto}" data-c="${i}" data-f="pagto"></td>
       <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.erro}" data-c="${i}" data-f="erro"></td>
-      <td class="num" style="font-weight:700">${brl(r.sug)}</td>
-      <td class="num"><input class="w-money in" type="number" step="0.5" value="${c.praticado}" data-c="${i}" data-f="praticado"></td>
-      <td class="num">${brl(r.contrib)}</td>
-      <td class="ctr"><span class="pill ${cls}">${pct(r.contribPct)}</span></td>
+      <td class="num" style="font-weight:700;color:#59F4B2">${brl(r.sug)}</td>
       <td><button class="iconbtn" onclick="delCanal(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function fixoRows(){const tb=document.getElementById("tb-fixo");tb.innerHTML="";
@@ -417,7 +420,7 @@ function setDed(i,f,v){state.detalhe.deducoes[i][f]=(f==='nome'||f==='tipo')?v:(
 function addDed(){state.detalhe.deducoes.push({nome:"Novo custo",tipo:"%",valor:0,prod:false});render();}
 function delDed(i){state.detalhe.deducoes.splice(i,1);render();}
 function renderDetalhe(){
-  const D=state.detalhe,preco=+D.preco||0;
+  const D=state.detalhe,preco=D.porPeso?((+D.precoKg||0)*(+D.pesoKg||0)):(+D.preco||0);
   let run=preco,totalCustos=0,prod=0,lines="";
   D.deducoes.forEach(d=>{
     const val=d.tipo==="%"?preco*(+d.valor||0)/100:(+d.valor||0);
@@ -432,12 +435,13 @@ function renderDetalhe(){
   const lucroGreen=pctL>=0.2, gC=lucroGreen?"#34D399":(pctL>=0?"#FBBF24":"#F87171");
   const lucroBox=lucroGreen?"background:#0c2b22;border-color:#1f7a52":(pctL>=0?"background:#2a2410;border-color:#7a5d1f":"background:#2a1414;border-color:#7a1f1f");
   const badge=`<span class="det-badge" style="background:${lucroGreen?'#114b35':'#3a1414'};color:${gC}">${bt}</span>`;
-  document.getElementById("det-out").innerHTML=`<div class="det-card"><div class="det-head">DETALHAMENTO</div><div class="det-price-row"><div class="det-price-label">🏷️ Preço de venda</div><div class="det-price">${brl(preco)}</div></div>${lines}<div class="det-total-row"><span>Total de custos</span><span>${brl(totalCustos)}</span></div><div class="det-prod"><span>Custos de produção (marcados)</span><span>${brl(prod)}</span></div><div style="color:#94A3B8;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin:8px 0 2px">↓ Lucro por unidade</div><div class="det-lucro" style="${lucroBox}"><div class="det-lucro-top"><div class="det-lucro-v" style="color:${gC}">${brl(lucro)}</div><div class="det-lucro-pct" style="color:${gC}">${pct(pctL)}</div>${badge}</div><div class="det-rh">⏱️ ${isFinite(rh)?brl(rh):"—"}/hora${isFinite(rh)?"":" (defina o tempo)"}</div></div><div class="det-pix"><span>Preço no Pix (−${(+D.pix||0).toLocaleString("pt-BR")}%)</span><b>${brl(pixPreco)}</b></div></div>`;
+  document.getElementById("det-out").innerHTML=`<div class="det-card"><div class="det-head">DETALHAMENTO</div><div class="det-price-row"><div class="det-price-label">${D.porPeso?("🏷️ "+brl(+D.precoKg||0)+"/kg × "+(+D.pesoKg||0).toLocaleString("pt-BR")+" kg"):"🏷️ Preço de venda"}</div><div class="det-price">${brl(preco)}</div></div>${lines}<div class="det-total-row"><span>Total de custos</span><span>${brl(totalCustos)}</span></div><div class="det-prod"><span>Custos de produção (marcados)</span><span>${brl(prod)}</span></div><div style="color:#94A3B8;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin:8px 0 2px">↓ Lucro por unidade</div><div class="det-lucro" style="${lucroBox}"><div class="det-lucro-top"><div class="det-lucro-v" style="color:${gC}">${brl(lucro)}</div><div class="det-lucro-pct" style="color:${gC}">${pct(pctL)}</div>${badge}</div><div class="det-rh">⏱️ ${isFinite(rh)?brl(rh):"—"}/hora${isFinite(rh)?"":" (defina o tempo)"}</div></div><div class="det-pix"><span>Preço no Pix (−${(+D.pix||0).toLocaleString("pt-BR")}%)</span><b>${brl(pixPreco)}</b></div></div>`;
 }
 function render(){
   document.getElementById("s-insumos").textContent=brl(subIns());
   document.getElementById("s-emb").textContent=brl(subEmb());
   document.getElementById("s-custovar").textContent=brl(custoVar());
+  document.getElementById("s-custokg").textContent=(+state.ficha.pesoKg>0)?brl(custoVar()/state.ficha.pesoKg)+"/kg":"—";
   fichaRows("insumos","tb-insumos");fichaRows("embalagem","tb-emb");
   document.getElementById("c-custovar").value=brl(custoVar());
   canalRows();fixoRows();
@@ -460,14 +464,13 @@ function refreshDerived(){
   document.getElementById("s-insumos").textContent=brl(subIns());
   document.getElementById("s-emb").textContent=brl(subEmb());
   document.getElementById("s-custovar").textContent=brl(custoVar());
+  document.getElementById("s-custokg").textContent=(+state.ficha.pesoKg>0)?brl(custoVar()/state.ficha.pesoKg)+"/kg":"—";
   document.getElementById("c-custovar").value=brl(custoVar());
   [["insumos","tb-insumos"],["embalagem","tb-emb"]].forEach(([k,id])=>{const rows=document.getElementById(id).children;
     state.ficha[k].forEach((it,i)=>{if(rows[i])rows[i].children[4].textContent=brl((+it.qtd||0)*(+it.custo||0));});});
   const crows=document.getElementById("tb-canais").children;
   state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);const tr=crows[i];if(!tr)return;
-    tr.children[4].textContent=brl(r.sug);tr.children[6].textContent=brl(r.contrib);
-    let cls=r.contribPct>=0.30?"g":r.contribPct>=0.15?"a":"r";
-    tr.children[7].innerHTML=`<span class="pill ${cls}">${pct(r.contribPct)}</span>`;});
+    tr.children[4].textContent=brl(r.sug);});
   document.getElementById("f-total").textContent=brl(fixoTotal());
   document.getElementById("pe-contrib").value=brl(contribAuto());
   const cu=contribAuto(),cf=fixoTotal(),pedidos=cu>0?cf/cu:NaN,pr=contribPctAuto(),fat=(pr>0?cf/pr:NaN);
@@ -489,6 +492,11 @@ function bindInputs(){
   document.getElementById("det-preco").value=state.detalhe.preco;
   document.getElementById("det-tempo").value=state.detalhe.tempoH;
   document.getElementById("det-pix").value=state.detalhe.pix;
+  document.getElementById("ficha-peso").value=state.ficha.pesoKg||"";
+  document.getElementById("det-porpeso").checked=!!state.detalhe.porPeso;
+  document.getElementById("det-precokg").value=state.detalhe.precoKg;
+  document.getElementById("det-pesokg").value=state.detalhe.pesoKg;
+  syncDetPeso();
 }
 const TABS=["inicio","ficha","canal","pe","detalhe"];
 const TABLABEL={inicio:"Início",ficha:"Ficha Técnica",canal:"Preço por Canal",pe:"Ponto de Equilíbrio",detalhe:"Detalhamento"};
@@ -511,6 +519,7 @@ function updateProfileLabel(){const el=document.getElementById("profile-now");if
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
+function syncDetPeso(){var on=!!state.detalhe.porPeso;var a=document.getElementById("row-preco"),b=document.getElementById("row-precokg"),c=document.getElementById("row-pesokg");if(a)a.style.display=on?"none":"";if(b)b.style.display=on?"":"none";if(c)c.style.display=on?"":"none";}
 function setMargem(v){state.canais.margem=v;var el=document.getElementById("c-margem");if(el)el.value=v;render();}
 function updateMargemRef(){var el=document.getElementById("margem-ref");if(!el)return;
   var m=+state.canais.margem||0,lab,col;
@@ -525,23 +534,23 @@ function updateMargemRef(){var el=document.getElementById("margem-ref");if(!el)r
 function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(+it.custo||0)+"</td><td class=\"n\">"+brl((+it.qtd||0)*(+it.custo||0))+"</td></tr>";}).join("");}
 function buildPrintSheet(){
   var D=state.detalhe||{deducoes:[]}, cv=custoVar();
-  var preco=+D.preco||0,run=preco,tot=0,detrows="";
+  var preco=D.porPeso?((+D.precoKg||0)*(+D.pesoKg||0)):(+D.preco||0),run=preco,tot=0,detrows="";
   (D.deducoes||[]).forEach(function(d){var v=d.tipo==="%"?preco*(+d.valor||0)/100:(+d.valor||0);run-=v;tot+=v;detrows+="<div class=\"kv\"><span>"+esc(d.nome)+(d.tipo==="%"?" ("+(+d.valor||0)+"%)":"")+"</span><span class=\"neg\">- "+brl(v)+"</span></div>";});
   var lucro=run,pctL=preco>0?lucro/preco:NaN,rh=(+D.tempoH>0)?lucro/D.tempoH:NaN,pix=preco*(1-(+D.pix||0)/100);
-  var canrows=state.canais.lista.map(function(c){var r=canalCalc(c);return "<tr><td>"+esc(c.nome)+"</td><td class=\"n\">"+brl(r.sug)+"</td><td class=\"n\">"+brl(+c.praticado||0)+"</td><td class=\"n\">"+brl(r.contrib)+"</td><td class=\"n\">"+pct(r.contribPct)+"</td></tr>";}).join("");
+  var canrows=state.canais.lista.map(function(c){var r=canalCalc(c);return "<tr><td>"+esc(c.nome)+"</td><td class=\"n\">"+(c.comissao||0)+"%</td><td class=\"n\"><b>"+brl(r.sug)+"</b></td></tr>";}).join("");
   var cf=fixoTotal(),cm=contribUsada(),ped=cm>0?cf/cm:NaN,ticket=+state.pe.ticket||0;
   var html="<div class=\"ph\"><div class=\"brand\">FinLab<span class=\"d\">.</span></div><div class=\"sub\"><b>Relatório de Precificação</b><br>"+(state.profile==="padaria"?"Padaria &amp; Lanchonete":"iFood &amp; Marketplaces")+"<br>"+new Date().toLocaleDateString("pt-BR")+"</div></div>"+
    "<h1>"+esc(state.ficha.produto||"Produto")+"</h1>"+
    "<div class=\"cols\"><div class=\"col\">"+
    "<h3>Ficha Técnica &mdash; custo variável</h3><table><thead><tr><th>Item</th><th class=\"n\">Qtd</th><th class=\"n\">R$/un</th><th class=\"n\">Total</th></tr></thead><tbody>"+psList(state.ficha.insumos)+psList(state.ficha.embalagem)+"</tbody></table>"+
-   "<div class=\"big\"><span>Custo variável unitário</span><span class=\"v\">"+brl(cv)+"</span></div>"+
+   "<div class=\"big\"><span>Custo variável unitário</span><span class=\"v\">"+brl(cv)+"</span></div>"+((+state.ficha.pesoKg)>0?"<div class=\"kv\"><span>Custo por kg</span><span>"+brl(cv/state.ficha.pesoKg)+"</span></div>":"")+
    "<h3>Ponto de Equilíbrio</h3>"+
    "<div class=\"kv\"><span>Custo fixo mensal</span><span>"+brl(cf)+"</span></div>"+
    "<div class=\"kv\"><span>Contribuição média / pedido</span><span>"+brl(cm)+"</span></div>"+
    "<div class=\"kv\"><span><b>Pedidos/mês p/ empatar</b></span><span class=\"pos\">"+num(ped)+"</span></div>"+
    "<div class=\"kv\"><span>Faturamento no equilíbrio</span><span>"+brl(ped*ticket)+"</span></div>"+
    "</div><div class=\"col\">"+
-   "<h3>Preço por Canal</h3><table><thead><tr><th>Canal</th><th class=\"n\">Sugerido</th><th class=\"n\">Pratica</th><th class=\"n\">Contrib.</th><th class=\"n\">%</th></tr></thead><tbody>"+canrows+"</tbody></table>"+
+   "<h3>Preço sugerido por canal</h3><table><thead><tr><th>Canal</th><th class=\"n\">Comissão</th><th class=\"n\">Preço sugerido</th></tr></thead><tbody>"+canrows+"</tbody></table>"+
    "<h3>Detalhamento do preço</h3>"+
    "<div class=\"kv\"><span><b>Preço de venda</b></span><span><b>"+brl(preco)+"</b></span></div>"+detrows+
    "<div class=\"kv\"><span>Total de custos</span><span class=\"neg\">"+brl(tot)+"</span></div>"+
