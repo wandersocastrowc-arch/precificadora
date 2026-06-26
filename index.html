@@ -294,6 +294,7 @@ function basePadaria(){return{profile:"padaria",
 };}
 function defaults(p){return p==="padaria"?basePadaria():baseApps();}
 let state=load();
+let userTouched=!!localStorage.getItem(KEY);
 function load(){const d=defaults();try{const s=localStorage.getItem(KEY);if(!s)return d;return Object.assign(d,JSON.parse(s));}catch(e){return d;}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 function loadExample(){const p=(state&&state.profile)||"apps";state=defaults(p);save();bindInputs();render();updateProfileLabel();}
@@ -419,7 +420,7 @@ function render(){
   document.getElementById("r-var").value=brl(custoVar());
   rateioRows();dedRows();renderDetalhe();save();
 }
-function onTableInput(e){const t=e.target;if(t.tagName!=="INPUT")return;
+function onTableInput(e){userTouched=true;const t=e.target;if(t.tagName!=="INPUT")return;
   if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un")?t.value:+t.value;}
   else if(t.dataset.c!=null){const c=state.canais.lista[+t.dataset.c];const f=t.dataset.f;c[f]=(f==="nome")?t.value:+t.value;}
   else if(t.dataset.x!=null){const x=state.pe.fixo[+t.dataset.x];const f=t.dataset.f;x[f]=(f==="nome")?t.value:+t.value;}
@@ -481,8 +482,8 @@ function buildStepNav(){TABS.forEach((t,i)=>{const p=document.getElementById("p-
   h+="</div><div>";
   if(i<TABS.length-1)h+=`<button class="btn amber" onclick="setTab('${TABS[i+1]}')">${TABLABEL[TABS[i+1]]} →</button>`;
   h+="</div>";d.innerHTML=h;p.appendChild(d);});}
-function loadProfile(p){if(!confirm("Carregar o perfil "+(p==="padaria"?"Padaria & Lanchonete":"Comida em apps & marketplaces")+"? Isso substitui os dados pelos exemplos do perfil."))return;
-  state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");}
+function loadProfile(p){if(userTouched&&!confirm("Trocar para o perfil "+(p==="padaria"?"Padaria & Lanchonete":"Comida em apps & marketplaces")+"? Isso substitui os dados atuais pelos exemplos do perfil."))return;
+  state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");userTouched=true;}
 function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🥖 Padaria & Lanchonete":"📱 Comida em apps & marketplaces");
   const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Padaria & Lanchonete":"Precificadora · iFood & Marketplaces";}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
