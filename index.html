@@ -76,6 +76,20 @@ input[type=number]{text-align:right}
 .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:760px){.row2{grid-template-columns:1fr}.htitle{font-size:20px}.panel h2{font-size:22px}.hide-sm{display:none}}
+@media(max-width:640px){
+header{padding:14px 16px}.htitle{font-size:19px}.hsub{font-size:13px}
+nav.tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{flex:0 0 auto;white-space:nowrap;padding:12px 11px;font-size:13px}
+main{padding:14px 12px 48px}.panel h2{font-size:21px}.card{padding:14px}
+th,td{padding:7px 6px;font-size:13px}
+.w-money{max-width:88px}.w-pct{max-width:60px}.w-qty{max-width:56px}
+.wide{min-width:660px}
+.field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
+.det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
+.stat .v{font-size:22px}.stepnav .btn{flex:1;justify-content:center}
+.toolbar .btn{font-size:12px}
+}
 footer{background:var(--deep);color:#94A3B8;padding:22px 16px;font-size:13px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
 footer a{color:var(--amber)}
@@ -108,6 +122,7 @@ svg text{font-family:inherit}
 .stepnav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 .bizpick{cursor:pointer;background:#13211C;border:1px solid var(--line);border-radius:10px;padding:14px}
 .bizpick:hover{border-color:var(--amber);background:#172A23}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media print{nav.tabs,.toolbar,.iconbtn,header .hsub,footer,.stepnav{display:none!important}.panel{display:none!important}.panel.active{display:block!important}body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:0;max-width:100%}.card{box-shadow:none;break-inside:avoid}.det-card{max-width:100%}.row2{gap:10px}@page{margin:12mm}}
 </style>
 </head>
@@ -122,8 +137,7 @@ svg text{font-family:inherit}
   <button data-t="ficha">1 · Ficha Técnica</button>
   <button data-t="canal">2 · Preço por Canal</button>
   <button data-t="pe">3 · Ponto de Equilíbrio</button>
-  <button data-t="rateio">4 · Rateio x Contribuição</button>
-  <button data-t="detalhe">5 · Detalhamento</button>
+  <button data-t="detalhe">4 · Detalhamento</button>
 </nav>
 <main>
   <div class="toolbar">
@@ -138,15 +152,14 @@ svg text{font-family:inherit}
   <section class="panel active" id="p-inicio">
     <div class="kicker">Comece aqui</div>
     <h2 class="serif">Como esta ferramenta funciona</h2>
-    <p class="lead">Cinco passos. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
+    <p class="lead">Quatro passos. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
       <div class="card" style="border:2px solid var(--amber)"><h3>Seu tipo de negócio</h3><p style="margin:0 0 12px" class="muted">Escolha o perfil — ele ajusta os canais e os exemplos (você pode editar tudo depois).</p><div class="statgrid"><div class="bizpick" onclick="loadProfile('padaria')"><b>🥖 Padaria &amp; Lanchonete</b><div class="muted" style="font-size:13px;margin-top:4px">Balcão, WhatsApp e delivery próprio. Sem marketplace.</div></div><div class="bizpick" onclick="loadProfile('apps')"><b>📱 Comida em apps &amp; marketplaces</b><div class="muted" style="font-size:13px;margin-top:4px">iFood (Básico/Entrega), Mercado Livre, Shopee.</div></div></div><p class="hint" id="profile-now"></p></div>
     <div class="row2">
       <div class="card"><h3>O caminho</h3>
         <p><b>1 · Ficha Técnica</b> — monte o custo <i>variável</i> de uma unidade (insumos + embalagem + descartáveis).</p>
         <p><b>2 · Preço por Canal</b> — veja o preço sugerido e a contribuição de cada canal (iFood, WhatsApp, marketplaces).</p>
         <p><b>3 · Ponto de Equilíbrio</b> — onde o custo fixo entra: como meta mensal, não como rateio por produto.</p>
-        <p><b>4 · Rateio x Contribuição</b> — por que ratear o custo fixo no preço distorce.</p>
-        <p><b>5 · Detalhamento</b> — a cascata do preço: desconta cada custo e mostra o lucro, o R$/hora e o preço no Pix.</p>
+        <p><b>4 · Detalhamento</b> — a cascata do preço: desconta cada custo e mostra o lucro, o R$/hora e o preço no Pix.</p>
       </div>
       <div class="card" style="background:var(--navy);color:#fff;border:0">
         <h3 style="color:var(--amber)">A ideia-chave sobre custo fixo</h3>
@@ -184,8 +197,8 @@ svg text{font-family:inherit}
       <div class="field"><label>Tributo sobre a venda (%) — ex.: Simples</label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
     <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem alvo).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − erro) − custo variável.</div></div></div>
-    <div class="card"><h3>Canais</h3><div style="overflow-x:auto">
-      <table><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Erro %</th><th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
+    <div class="card"><h3>Canais</h3><div class="tscroll">
+      <table class="wide"><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Erro %</th><th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
       </div><button class="btn ghost sm" style="margin-top:10px" onclick="addCanal()">+ Adicionar canal</button></div>
     <div class="note red">⚠ Repare: o custo fixo não aparece neste preço. Ele é coberto pela soma das contribuições — veja o passo 3.</div>
   </section>
@@ -209,32 +222,6 @@ svg text{font-family:inherit}
         </div></div>
     </div>
     <div class="note"><b>Leitura:</b> você precisa de <b id="pe-frase">0</b> pedidos por mês só para pagar o custo fixo. Cada pedido acima disso é lucro. Por isso o custo fixo não cabe no preço de um produto — ele é uma meta do mês inteiro.</div>
-  </section>
-  <section class="panel" id="p-rateio">
-    <div class="kicker">Passo 4</div>
-    <h2 class="serif">Por que o rateio distorce</h2>
-    <p class="lead">O mesmo custo fixo, dois métodos. Veja o preço pelo rateio explodir quando o volume cai.</p>
-    <div class="card"><div class="row2">
-      <div>
-        <div class="field"><label>Custo fixo mensal (do passo 3)</label><input id="r-fixo" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
-        <div class="field"><label>Custo variável unitário (da ficha)</label><input id="r-var" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
-      </div>
-      <div>
-        <div class="field"><label>Markup desejado no rateio (%)</label><input class="in" type="number" step="1" id="r-markup" oninput="state.rateio.markup=+this.value;render()"></div>
-        <div class="field"><label>Preço de mercado / praticado (R$)</label><input class="in" type="number" step="0.5" id="r-preco" oninput="state.rateio.preco=+this.value;render()"></div>
-      </div></div>
-      <div class="field" style="max-width:560px"><label>Cenários de volume (pedidos/mês)</label>
-        <input class="in" type="number" id="r-v0" oninput="state.rateio.vol[0]=+this.value;render()">
-        <input class="in" type="number" id="r-v1" oninput="state.rateio.vol[1]=+this.value;render()">
-        <input class="in" type="number" id="r-v2" oninput="state.rateio.vol[2]=+this.value;render()"></div></div>
-    <div class="row2">
-      <div class="card"><h3 style="color:var(--red)">Método 1 · Rateio (custo cheio + markup)</h3><table><tbody id="tb-rateio"></tbody></table>
-        <p class="hint">O preço &ldquo;necessário&rdquo; muda com o volume. Vende menos &rarr; preço sobe &rarr; vende menos.</p></div>
-      <div class="card"><h3 style="color:var(--green)">Método 2 · Contribuição (preço de mercado fixo)</h3><table><tbody id="tb-contrib"></tbody></table>
-        <p class="hint">O preço não muda; o volume cobre o custo fixo.</p></div>
-    </div>
-    <div class="card"><h3>Preço necessário: rateio x preço de mercado</h3><div id="chart"></div></div>
-    <div class="note"><b>Moral:</b> o rateio sobe o preço justamente quando o movimento cai — e preço alto afasta cliente, que derruba o volume de novo (a espiral). Na contribuição, o preço é estável e o custo fixo é coberto pelo volume. <b>Custo variável manda no preço mínimo; o custo fixo é meta de volume, não imposto por produto.</b></div>
   </section>
   <section class="panel" id="p-detalhe">
     <div class="kicker">Detalhamento</div>
@@ -416,9 +403,7 @@ function render(){
   document.getElementById("pe-frase").textContent=num(pedidos);
   document.getElementById("pe-dia").textContent=isFinite(pedidos)?(pedidos/30).toLocaleString("pt-BR",{maximumFractionDigits:1}):"—";
   document.getElementById("pe-fat").textContent=brl(pedidos*ticket);
-  document.getElementById("r-fixo").value=brl(fixoTotal());
-  document.getElementById("r-var").value=brl(custoVar());
-  rateioRows();dedRows();renderDetalhe();save();
+  dedRows();renderDetalhe();save();
 }
 function onTableInput(e){userTouched=true;const t=e.target;if(t.tagName!=="INPUT")return;
   if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un")?t.value:+t.value;}
@@ -445,9 +430,6 @@ function refreshDerived(){
   document.getElementById("pe-frase").textContent=num(pedidos);
   document.getElementById("pe-dia").textContent=isFinite(pedidos)?(pedidos/30).toLocaleString("pt-BR",{maximumFractionDigits:1}):"—";
   document.getElementById("pe-fat").textContent=brl(pedidos*ticket);
-  document.getElementById("r-fixo").value=brl(fixoTotal());
-  document.getElementById("r-var").value=brl(custoVar());
-  rateioRows();
 }
 function addRow(key){state.ficha[key].push({nome:"",un:"un",qtd:1,custo:0});render();}
 function delRow(key,i){state.ficha[key].splice(i,1);render();}
@@ -461,17 +443,12 @@ function bindInputs(){
   document.getElementById("c-tributo").value=state.canais.tributo;
   document.getElementById("pe-contrib").value=(state.pe.contribManual==null?"":state.pe.contribManual);
   document.getElementById("pe-ticket").value=state.pe.ticket;
-  document.getElementById("r-markup").value=state.rateio.markup;
-  document.getElementById("r-preco").value=state.rateio.preco;
-  document.getElementById("r-v0").value=state.rateio.vol[0];
-  document.getElementById("r-v1").value=state.rateio.vol[1];
-  document.getElementById("r-v2").value=state.rateio.vol[2];
   document.getElementById("det-preco").value=state.detalhe.preco;
   document.getElementById("det-tempo").value=state.detalhe.tempoH;
   document.getElementById("det-pix").value=state.detalhe.pix;
 }
-const TABS=["inicio","ficha","canal","pe","rateio","detalhe"];
-const TABLABEL={inicio:"Início",ficha:"Ficha Técnica",canal:"Preço por Canal",pe:"Ponto de Equilíbrio",rateio:"Rateio x Contribuição",detalhe:"Detalhamento"};
+const TABS=["inicio","ficha","canal","pe","detalhe"];
+const TABLABEL={inicio:"Início",ficha:"Ficha Técnica",canal:"Preço por Canal",pe:"Ponto de Equilíbrio",detalhe:"Detalhamento"};
 function setTab(t){document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("active",x.dataset.t===t));
   document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
   const el=document.getElementById("p-"+t);if(el)el.classList.add("active");window.scrollTo(0,0);}
@@ -482,6 +459,7 @@ function buildStepNav(){TABS.forEach((t,i)=>{const p=document.getElementById("p-
   h+="</div><div>";
   if(i<TABS.length-1)h+=`<button class="btn amber" onclick="setTab('${TABS[i+1]}')">${TABLABEL[TABS[i+1]]} →</button>`;
   h+="</div>";d.innerHTML=h;p.appendChild(d);});}
+function wrapTables(){document.querySelectorAll("main table").forEach(function(t){if(t.closest(".tscroll"))return;var w=document.createElement("div");w.className="tscroll";t.parentNode.insertBefore(w,t);w.appendChild(t);});}
 function loadProfile(p){if(userTouched&&!confirm("Trocar para o perfil "+(p==="padaria"?"Padaria & Lanchonete":"Comida em apps & marketplaces")+"? Isso substitui os dados atuais pelos exemplos do perfil."))return;
   state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");userTouched=true;}
 function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🥖 Padaria & Lanchonete":"📱 Comida em apps & marketplaces");
@@ -505,7 +483,7 @@ function savePDF(){var panel=document.querySelector('.panel.active')||document.b
     worker.save().catch(function(){window.print();});
   }}
 document.addEventListener("input",onTableInput);
-bindInputs();render();buildStepNav();updateProfileLabel();
+bindInputs();render();buildStepNav();updateProfileLabel();wrapTables();
 </script>
 </body>
 </html>
