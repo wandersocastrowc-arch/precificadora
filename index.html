@@ -7,10 +7,10 @@
 <meta name="description" content="Precificadora por canal para iFood, marketplaces e delivery. Calcule custo, preço e margem de contribuição. Por FinLab.">
 <style>
 :root{
-  --navy:#0B1D3A; --navy2:#12294B; --deep:#061128; --amber:#F59E0B; --amber-d:#B45309;
-  --ink:#0F172A; --text:#1E293B; --muted:#64748B; --line:#E2E8F0; --card:#FFFFFF;
-  --bg:#F4F6FA; --green:#0E9F6E; --green-bg:#E7F6EF; --red:#E02424; --red-bg:#FDECEC;
-  --amber-bg:#FEF3E2;
+  --navy:#0F1A16; --navy2:#16241F; --deep:#070C0A; --amber:#59F4B2; --amber-d:#59F4B2;
+  --ink:#EAF6F0; --text:#D7E6DF; --muted:#8AA89B; --line:#25352F; --card:#101A16;
+  --bg:#0A0F0D; --green:#59F4B2; --green-bg:#10271D; --red:#F87171; --red-bg:#2A1515;
+  --amber-bg:#12241C;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -37,16 +37,16 @@ main{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
 .panel h2{font-size:26px;margin:4px 0 4px;color:var(--ink)}
 .lead{color:var(--muted);margin:0 0 18px;max-width:760px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
-.card h3{margin:0 0 12px;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+.card h3{margin:0 0 12px;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--amber)}
 table{width:100%;border-collapse:collapse}
 th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
 td.num,th.num{text-align:right}
 td.ctr,th.ctr{text-align:center}
 tbody tr:last-child td{border-bottom:0}
-input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 8px;width:100%;background:#fff}
+input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 8px;width:100%;background:#0E1712}
 input:focus,select:focus{outline:2px solid var(--amber);border-color:var(--amber)}
-input.in{background:var(--amber-bg);border-color:#F3D9A8}
+input.in{background:var(--amber-bg);border-color:#2f6f53}
 input[type=number]{text-align:right}
 .w-money{max-width:120px}.w-pct{max-width:84px}.w-qty{max-width:74px}
 .field{display:flex;align-items:center;gap:10px;margin:8px 0}
@@ -54,8 +54,8 @@ input[type=number]{text-align:right}
 .field input{max-width:140px}
 .btn{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer}
 .btn:hover{background:#16315A}
-.btn.amber{background:var(--amber);color:#3a2400}.btn.amber:hover{background:#ffb023}
-.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn.ghost:hover{background:#F1F5F9}
+.btn.amber{background:var(--amber);color:#06251A}.btn.amber:hover{background:#7CFFC8}
+.btn.ghost{background:#13211C;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{background:#1A2C25}
 .btn.sm{padding:5px 9px;font-size:13px}
 .iconbtn{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px}
 .iconbtn:hover{color:var(--red)}
@@ -70,9 +70,9 @@ input[type=number]{text-align:right}
 .pill.g{background:var(--green-bg);color:var(--green)}
 .pill.a{background:var(--amber-bg);color:var(--amber-d)}
 .pill.r{background:var(--red-bg);color:var(--red)}
-.totalrow td{border-top:2px solid var(--navy);font-weight:700;background:#F8FAFC}
-.note{background:var(--amber-bg);border:1px solid #F3D9A8;border-radius:10px;padding:12px 14px;color:#7a4a08;font-size:14px}
-.note.red{background:var(--red-bg);border-color:#f3c2c2;color:#8a1c1c}
+.totalrow td{border-top:2px solid var(--amber);font-weight:700;background:#13211C}
+.note{background:#12241C;border:1px solid #2f6f53;border-radius:10px;padding:12px 14px;color:#CDEFE0;font-size:14px}
+.note.red{background:#2A1515;border-color:#7a2a2a;color:#FCA5A5}
 .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:760px){.row2{grid-template-columns:1fr}.htitle{font-size:20px}.panel h2{font-size:22px}.hide-sm{display:none}}
@@ -81,9 +81,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-con
 footer a{color:var(--amber)}
 svg .axis{stroke:var(--line);stroke-width:1}
 svg text{font-family:inherit}
-.det-card{background:#0d1f3c;border:1px solid #1E3A5F;border-radius:16px;padding:22px;color:#E2E8F0;max-width:540px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.det-card{background:#0c1713;border:1px solid #25352F;border-radius:16px;padding:22px;color:#E2E8F0;max-width:540px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
 .det-head{color:#94A3B8;font-weight:700;letter-spacing:3px;font-size:12px;margin-bottom:14px}
-.det-price-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid #1E3A5F}
+.det-price-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid #25352F}
 .det-price-label{color:#fff;font-weight:600;display:flex;align-items:center;gap:8px}
 .det-price{font-family:Georgia,serif;font-weight:bold;font-size:30px;color:#fff}
 .det-line{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid #14294a}
@@ -103,14 +103,18 @@ svg text{font-family:inherit}
 .det-badge{border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px}
 .det-rh{color:#94A3B8;font-size:13px;margin-top:8px}
 .det-pix{display:flex;justify-content:space-between;margin-top:14px;color:#CBD5E1}
-.det-pix b{color:#fff}
-@media print{nav.tabs,.toolbar,.iconbtn,header .hsub{display:none!important}.panel{display:block!important;page-break-after:always}body{background:#fff;font-size:12px}.card{box-shadow:none}}
+.det-pix b{color:#59F4B2}
+.muted{color:var(--muted)}
+.stepnav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.bizpick{cursor:pointer;background:#13211C;border:1px solid var(--line);border-radius:10px;padding:14px}
+.bizpick:hover{border-color:var(--amber);background:#172A23}
+@media print{nav.tabs,.toolbar,.iconbtn,header .hsub,footer,.stepnav{display:none!important}.panel{display:none!important}.panel.active{display:block!important}body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:0;max-width:100%}.card{box-shadow:none;break-inside:avoid}.det-card{max-width:100%}.row2{gap:10px}@page{margin:12mm}}
 </style>
 </head>
 <body>
 <header><div class="wrap">
   <div class="brand">FinLab<span class="dot">.</span></div>
-  <div class="htitle">Precificadora · iFood &amp; Marketplaces</div>
+  <div class="htitle" id="htitle">Precificadora · iFood &amp; Marketplaces</div>
   <div class="hsub">Custo real, preço por canal e margem de contribuição — pare de faturar muito e lucrar pouco.</div>
 </div></header>
 <nav class="tabs" id="tabs">
@@ -129,12 +133,13 @@ svg text{font-family:inherit}
     <button class="btn ghost sm" onclick="exportJSON()">⭳ Exportar dados</button>
     <button class="btn ghost sm" onclick="document.getElementById('imp').click()">⭱ Importar</button>
     <input type="file" id="imp" accept="application/json" style="display:none" onchange="importJSON(event)">
-    <button class="btn sm" onclick="window.print()">🖨 PDF / Imprimir</button>
+    <button class="btn amber sm" onclick="savePDF()">Salvar PDF</button>
   </div>
   <section class="panel active" id="p-inicio">
     <div class="kicker">Comece aqui</div>
     <h2 class="serif">Como esta ferramenta funciona</h2>
     <p class="lead">Cinco passos. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
+      <div class="card" style="border:2px solid var(--amber)"><h3>Seu tipo de negócio</h3><p style="margin:0 0 12px" class="muted">Escolha o perfil — ele ajusta os canais e os exemplos (você pode editar tudo depois).</p><div class="statgrid"><div class="bizpick" onclick="loadProfile('padaria')"><b>🥖 Padaria &amp; Lanchonete</b><div class="muted" style="font-size:13px;margin-top:4px">Balcão, WhatsApp e delivery próprio. Sem marketplace.</div></div><div class="bizpick" onclick="loadProfile('apps')"><b>📱 Comida em apps &amp; marketplaces</b><div class="muted" style="font-size:13px;margin-top:4px">iFood (Básico/Entrega), Mercado Livre, Shopee.</div></div></div><p class="hint" id="profile-now"></p></div>
     <div class="row2">
       <div class="card"><h3>O caminho</h3>
         <p><b>1 · Ficha Técnica</b> — monte o custo <i>variável</i> de uma unidade (insumos + embalagem + descartáveis).</p>
@@ -166,7 +171,7 @@ svg text{font-family:inherit}
     <div class="statgrid">
       <div class="stat"><div class="v amber" id="s-insumos">R$ 0,00</div><div class="k">Subtotal insumos</div></div>
       <div class="stat"><div class="v amber" id="s-emb">R$ 0,00</div><div class="k">Subtotal embalagem</div></div>
-      <div class="stat" style="background:var(--amber)"><div class="v" style="color:var(--deep)" id="s-custovar">R$ 0,00</div><div class="k" style="color:#7a4a08">Custo variável unitário</div></div>
+      <div class="stat" style="background:var(--amber)"><div class="v" style="color:var(--deep)" id="s-custovar">R$ 0,00</div><div class="k" style="color:#06351F">Custo variável unitário</div></div>
     </div>
   </section>
   <section class="panel" id="p-canal">
@@ -174,7 +179,7 @@ svg text{font-family:inherit}
     <h2 class="serif">Preço por Canal</h2>
     <p class="lead">Cada canal tem um pedágio diferente — logo, um preço diferente. O custo fixo <b>não</b> entra aqui.</p>
     <div class="card"><div class="row2"><div>
-      <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
+      <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
       <div class="field"><label>Margem de contribuição alvo (%)</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
       <div class="field"><label>Tributo sobre a venda (%) — ex.: Simples</label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
@@ -211,8 +216,8 @@ svg text{font-family:inherit}
     <p class="lead">O mesmo custo fixo, dois métodos. Veja o preço pelo rateio explodir quando o volume cai.</p>
     <div class="card"><div class="row2">
       <div>
-        <div class="field"><label>Custo fixo mensal (do passo 3)</label><input id="r-fixo" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
-        <div class="field"><label>Custo variável unitário (da ficha)</label><input id="r-var" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
+        <div class="field"><label>Custo fixo mensal (do passo 3)</label><input id="r-fixo" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
+        <div class="field"><label>Custo variável unitário (da ficha)</label><input id="r-var" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
       </div>
       <div>
         <div class="field"><label>Markup desejado no rateio (%)</label><input class="in" type="number" step="1" id="r-markup" oninput="state.rateio.markup=+this.value;render()"></div>
@@ -255,6 +260,7 @@ svg text{font-family:inherit}
   <div><span style="font-family:Georgia,serif;font-weight:bold;font-size:18px;color:#fff">FinLab<span style="color:var(--amber)">.</span></span> &nbsp; Pessoas · Empresas · Jurídico</div>
   <div>Wanderson de Castro · Economista · Perito · Consultor · <a href="https://wandersocastrowc-arch.github.io/Portifolio" target="_blank" rel="noopener">Portfólio</a></div>
 </div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 "use strict";
 const KEY="finlab_precificadora_v1";
@@ -262,7 +268,7 @@ const brl=n=>isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BR
 const pct=n=>isFinite(n)?(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%":"—";
 const num=n=>isFinite(n)?Math.round(n).toLocaleString("pt-BR"):"—";
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-function defaults(){return{
+function baseApps(){return{profile:"apps",
   ficha:{produto:"Hambúrguer Artesanal (combo)",
     insumos:[["Pão brioche","un",1,1.20],["Hambúrguer 120g","un",1,3.50],["Queijo cheddar","fatia",2,0.45],["Bacon","g",20,0.06],["Molho da casa","porção",1,0.40],["Alface e tomate","porção",1,0.30],["Batata (acompanha)","g",120,0.012]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
     embalagem:[["Embalagem do combo","un",1,1.10],["Sachê de ketchup","un",2,0.18],["Guardanapo","un",2,0.05],["Sacola delivery","un",1,0.25],["Talher descartável","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
@@ -274,10 +280,23 @@ function defaults(){return{
   detalhe:{preco:99.90,tempoH:3,pix:5,
     deducoes:[["Imposto","%",12,false],["Taxa cartão","%",3,false],["Energia elétrica","%",0.3,true],["Filamento / insumo","%",3.3,true],["Embalagem","%",1.5,true]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
 };}
+function basePadaria(){return{profile:"padaria",
+  ficha:{produto:"Coxinha de frango (unidade)",
+    insumos:[["Massa (batata+farinha)","un",1,0.55],["Frango desfiado","g",40,0.018],["Tempero/cebola","porção",1,0.10],["Farinha de rosca","g",15,0.01],["Óleo (fritura, rateio)","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
+    embalagem:[["Guardanapo","un",1,0.03],["Saquinho/embalagem","un",1,0.07]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
+  canais:{margem:45,tributo:6,
+    lista:[["Balcão / vitrine",0,0,1,8],["WhatsApp / delivery próprio",0,0,2,9],["iFood (opcional)",23,3.2,4,11],["Encomenda / festa",0,0,1,7]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
+  pe:{contribManual:null,ticket:18,
+    fixo:[["Aluguel",3500],["Energia e gás",1500],["Internet e telefone",200],["Salários (padeiro/atendente)",6000],["Pró-labore (dono)",3500],["Contador",500],["Embalagens/limpeza",400],["Marketing local",400],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
+  rateio:{markup:60,preco:9,vol:[2500,1500,800]},
+  detalhe:{preco:12,tempoH:0.4,pix:0,
+    deducoes:[["Imposto","%",6,false],["Taxa cartão","%",2,false],["Gás / forno","%",2,true],["Ingredientes","%",30,true],["Embalagem","%",4,true]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
+};}
+function defaults(p){return p==="padaria"?basePadaria():baseApps();}
 let state=load();
 function load(){const d=defaults();try{const s=localStorage.getItem(KEY);if(!s)return d;return Object.assign(d,JSON.parse(s));}catch(e){return d;}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
-function loadExample(){state=defaults();save();bindInputs();render();}
+function loadExample(){const p=(state&&state.profile)||"apps";state=defaults(p);save();bindInputs();render();updateProfileLabel();}
 function clearAll(){if(!confirm("Limpar todos os dados?"))return;
   state=defaults();state.ficha.produto="";state.ficha.insumos=[];state.ficha.embalagem=[];
   state.canais.lista.forEach(c=>{c.comissao=0;c.pagto=0;c.erro=0;c.praticado=0;});
@@ -450,15 +469,42 @@ function bindInputs(){
   document.getElementById("det-tempo").value=state.detalhe.tempoH;
   document.getElementById("det-pix").value=state.detalhe.pix;
 }
-document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-  document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+const TABS=["inicio","ficha","canal","pe","rateio","detalhe"];
+const TABLABEL={inicio:"Início",ficha:"Ficha Técnica",canal:"Preço por Canal",pe:"Ponto de Equilíbrio",rateio:"Rateio x Contribuição",detalhe:"Detalhamento"};
+function setTab(t){document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("active",x.dataset.t===t));
   document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-  document.getElementById("p-"+b.dataset.t).classList.add("active");window.scrollTo(0,0);});
+  const el=document.getElementById("p-"+t);if(el)el.classList.add("active");window.scrollTo(0,0);}
+document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setTab(b.dataset.t);});
+function buildStepNav(){TABS.forEach((t,i)=>{const p=document.getElementById("p-"+t);if(!p||p.querySelector(".stepnav"))return;
+  const d=document.createElement("div");d.className="stepnav";let h="<div>";
+  if(i>0)h+=`<button class="btn ghost" onclick="setTab('${TABS[i-1]}')">← ${TABLABEL[TABS[i-1]]}</button>`;
+  h+="</div><div>";
+  if(i<TABS.length-1)h+=`<button class="btn amber" onclick="setTab('${TABS[i+1]}')">${TABLABEL[TABS[i+1]]} →</button>`;
+  h+="</div>";d.innerHTML=h;p.appendChild(d);});}
+function loadProfile(p){if(!confirm("Carregar o perfil "+(p==="padaria"?"Padaria & Lanchonete":"Comida em apps & marketplaces")+"? Isso substitui os dados pelos exemplos do perfil."))return;
+  state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");}
+function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🥖 Padaria & Lanchonete":"📱 Comida em apps & marketplaces");
+  const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Padaria & Lanchonete":"Precificadora · iFood & Marketplaces";}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
+function savePDF(){var panel=document.querySelector('.panel.active')||document.body;
+  var t=document.querySelector('#tabs button.active');var name="precificadora-"+(t?t.dataset.t:"finlab")+".pdf";
+  if(!window.html2pdf){window.print();return;}
+  var isIOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var win=isIOS?window.open("","_blank"):null;
+  window.scrollTo(0,0);
+  var opt={margin:8,filename:name,image:{type:"jpeg",quality:0.98},
+    html2canvas:{scale:2,backgroundColor:getComputedStyle(document.body).backgroundColor,useCORS:true,windowWidth:document.documentElement.clientWidth,onclone:function(doc){doc.querySelectorAll(".stepnav").forEach(function(e){e.remove();});}},
+    jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"]}};
+  var worker=html2pdf().set(opt).from(panel);
+  if(isIOS){
+    worker.toPdf().get("pdf").then(function(pdf){var url=pdf.output("bloburl");if(win){win.location.href=url;}else{window.location.href=url;}}).catch(function(){if(win)win.close();window.print();});
+  }else{
+    worker.save().catch(function(){window.print();});
+  }}
 document.addEventListener("input",onTableInput);
-bindInputs();render();
+bindInputs();render();buildStepNav();updateProfileLabel();
 </script>
 </body>
 </html>
