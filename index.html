@@ -159,7 +159,12 @@ svg text{font-family:inherit}
 .ps .kv{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEF4F1}
 .ps .pos{color:#0E9F6E;font-weight:bold}.ps .neg{color:#C0392B;font-weight:bold}
 .ps .badge{display:inline-block;background:#E8F7F0;color:#0B6B4F;border-radius:999px;padding:1px 8px;font-weight:bold;font-size:10px}
-.ps .foot{margin-top:12px;border-top:1px solid #DCE7E1;padding-top:8px;font-size:9px;color:#5C7468;display:flex;justify-content:space-between}
+.ps .foot{margin-top:10px;border-top:1px solid #DCE7E1;padding-top:8px;font-size:9px;color:#5C7468;display:flex;justify-content:space-between}
+.ps .promo{display:flex;justify-content:space-between;align-items:center;gap:16px;background:#0B6B4F;color:#EAF6F0;border-radius:8px;padding:11px 16px;margin:12px 0 6px}
+.ps .promo-t{font-weight:bold;font-size:13px;color:#fff}
+.ps .promo-s{font-size:10px;color:#CFEFE0;margin-top:2px}
+.ps .promo-c{font-size:10.5px;text-align:right;color:#EAF6F0;line-height:1.5;white-space:nowrap}
+.ps .promo-c b{color:#fff}
 @media print{nav.tabs,.toolbar,.iconbtn,header .hsub,footer,.stepnav,#printsheet,#progresswrap{display:none!important}.panel{display:none!important}.panel.active{display:block!important}body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:0;max-width:100%}.card{box-shadow:none;break-inside:avoid}.det-card{max-width:100%}.row2{gap:10px}@page{margin:12mm}}
 </style>
 </head>
@@ -232,7 +237,7 @@ svg text{font-family:inherit}
     <div class="card"><div class="row2"><div>
       <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
       <div class="field"><label>Margem de contribuição (desejada) %</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
-      <div class="field"><label>Tributo sobre a venda (%) <span style="color:var(--muted);font-weight:400">(se MEI, vai no custo fixo)</span></label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
+      <div class="field"><label>Tributo sobre a venda (%) <span style="color:var(--muted);font-weight:400">(MEI: deixe zerado, lance o DAS no custo fixo)</span></label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
     <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem desejada).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − quebra) − custo variável.</div></div></div>
     <div class="card"><h3>Canais</h3><div class="tscroll">
@@ -298,7 +303,7 @@ function baseApps(){return{profile:"apps",
   ficha:{produto:"Hambúrguer Artesanal (combo)",
     insumos:[["Pão brioche","un",1,1.20],["Hambúrguer 120g","un",1,3.50],["Queijo cheddar","fatia",2,0.45],["Bacon","g",20,0.06],["Molho da casa","porção",1,0.40],["Alface e tomate","porção",1,0.30],["Batata (acompanha)","g",120,0.012]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
     embalagem:[["Embalagem do combo","un",1,1.10],["Sachê de ketchup","un",2,0.18],["Guardanapo","un",2,0.05],["Sacola delivery","un",1,0.25],["Talher descartável","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
-  canais:{margem:35,tributo:6,
+  canais:{margem:35,tributo:0,
     lista:[["Balcão / loja física",0,0,1,28],["WhatsApp / venda direta",0,0,2,28],["iFood — Plano Básico",12,3.2,4,32],["iFood — Plano Entrega",23,3.2,4,36],["Mercado Livre",16,0,6,34],["Shopee",20,0,6,35]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
   pe:{contribManual:null,ticket:32,
     fixo:[["Aluguel",4500],["Energia e água",1200],["Internet e telefone",250],["Salários + encargos",8000],["Pró-labore (dono)",4000],["Contador",600],["Softwares e apps",300],["Mensalidade iFood",150],["Imposto / DAS (se MEI)",0],["Marketing fixo",700],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
@@ -310,7 +315,7 @@ function basePadaria(){return{profile:"padaria",
   ficha:{produto:"Coxinha de frango (unidade)",
     insumos:[["Massa (batata+farinha)","un",1,0.55],["Frango desfiado","g",40,0.018],["Tempero/cebola","porção",1,0.10],["Farinha de rosca","g",15,0.01],["Óleo (fritura, rateio)","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
     embalagem:[["Guardanapo","un",1,0.03],["Saquinho/embalagem","un",1,0.07]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
-  canais:{margem:45,tributo:6,
+  canais:{margem:45,tributo:0,
     lista:[["Balcão / vitrine",0,0,1,8],["WhatsApp / delivery próprio",0,0,2,9],["iFood (opcional)",23,3.2,4,11],["Encomenda / festa",0,0,1,7]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
   pe:{contribManual:null,ticket:18,
     fixo:[["Aluguel",3500],["Energia e gás",1500],["Internet e telefone",200],["Salários (padeiro/atendente)",6000],["Pró-labore (dono)",3500],["Contador",500],["Embalagens/limpeza",400],["Imposto / DAS (se MEI)",0],["Marketing local",400],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
@@ -534,6 +539,7 @@ function buildPrintSheet(){
    "<div class=\"kv\"><span>Por hora</span><span>"+(isFinite(rh)?brl(rh)+" /h":"—")+"</span></div>"+
    "<div class=\"kv\"><span>Preço no Pix (-"+(+D.pix||0)+"%)</span><span>"+brl(pix)+"</span></div>"+
    "</div></div>"+
+   "<div class=\"promo\"><div><div class=\"promo-t\">Quer precificar certo e parar de lucrar pouco?</div><div class=\"promo-s\">Consultoria e mentoria de preço, custos e gestão para donos de negócio &mdash; com a FinLab.</div></div><div class=\"promo-c\"><b>WhatsApp</b> (22) 99919-1778<br><b>E-mail</b> wanderson_castro@outlook.com<br><b>Portfólio</b> wandersocastrowc-arch.github.io/Portifolio</div></div>"+
    "<div class=\"foot\"><span>Gerado pela Precificadora FinLab.</span><span>wandersocastrowc-arch.github.io/precificadora</span></div>";
   document.querySelector("#printsheet .ps").innerHTML=html;
 }
