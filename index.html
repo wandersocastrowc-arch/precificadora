@@ -140,7 +140,27 @@ svg text{font-family:inherit}
 .bizpick{cursor:pointer;background:#13211C;border:1px solid var(--line);border-radius:10px;padding:14px}
 .bizpick:hover{border-color:var(--amber);background:#172A23}
 .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media print{nav.tabs,.toolbar,.iconbtn,header .hsub,footer,.stepnav{display:none!important}.panel{display:none!important}.panel.active{display:block!important}body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:0;max-width:100%}.card{box-shadow:none;break-inside:avoid}.det-card{max-width:100%}.row2{gap:10px}@page{margin:12mm}}
+.ps{width:794px;background:#fff;color:#14241E;font-family:Arial,Helvetica,sans-serif;font-size:11px;padding:26px 30px}
+.ps *{box-sizing:border-box}
+.ps .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0E9F6E;padding-bottom:9px;margin-bottom:14px}
+.ps .brand{font-family:Georgia,serif;font-weight:bold;font-size:21px;color:#0B3D2E}
+.ps .brand .d{color:#0E9F6E}
+.ps .ph .sub{font-size:11px;color:#5C7468;text-align:right;line-height:1.4}
+.ps h1{font-family:Georgia,serif;font-size:23px;margin:0 0 12px;color:#0B3D2E}
+.ps .cols{display:flex;gap:22px}
+.ps .col{flex:1}
+.ps h3{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#0E9F6E;margin:0 0 6px;border-bottom:1px solid #DCE7E1;padding-bottom:3px}
+.ps table{width:100%;border-collapse:collapse;margin-bottom:12px}
+.ps th{font-size:9px;text-transform:uppercase;color:#5C7468;text-align:left;padding:3px 4px;border-bottom:1px solid #DCE7E1}
+.ps td{padding:3px 4px;border-bottom:1px solid #EEF4F1}
+.ps td.n,.ps th.n{text-align:right}
+.ps .big{background:#E8F7F0;border:1px solid #BFE6D5;border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;margin:4px 0 12px}
+.ps .big .v{font-family:Georgia,serif;font-weight:bold;font-size:18px;color:#0B6B4F}
+.ps .kv{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEF4F1}
+.ps .pos{color:#0E9F6E;font-weight:bold}.ps .neg{color:#C0392B;font-weight:bold}
+.ps .badge{display:inline-block;background:#E8F7F0;color:#0B6B4F;border-radius:999px;padding:1px 8px;font-weight:bold;font-size:10px}
+.ps .foot{margin-top:12px;border-top:1px solid #DCE7E1;padding-top:8px;font-size:9px;color:#5C7468;display:flex;justify-content:space-between}
+@media print{nav.tabs,.toolbar,.iconbtn,header .hsub,footer,.stepnav,#printsheet{display:none!important}.panel{display:none!important}.panel.active{display:block!important}body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:0;max-width:100%}.card{box-shadow:none;break-inside:avoid}.det-card{max-width:100%}.row2{gap:10px}@page{margin:12mm}}
 </style>
 </head>
 <body>
@@ -210,10 +230,10 @@ svg text{font-family:inherit}
     <p class="lead">Cada canal tem um pedágio diferente — logo, um preço diferente. O custo fixo <b>não</b> entra aqui.</p>
     <div class="card"><div class="row2"><div>
       <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
-      <div class="field"><label>Margem de contribuição alvo (%)</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
+      <div class="field"><label>Margem de contribuição (desejada) %</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
       <div class="field"><label>Tributo sobre a venda (%) — ex.: Simples</label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
-    <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem alvo).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − erro) − custo variável.</div></div></div>
+    <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem desejada).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − erro) − custo variável.</div></div></div>
     <div class="card"><h3>Canais</h3><div class="tscroll">
       <table class="wide"><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Erro %</th><th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
       </div><button class="btn ghost sm" style="margin-top:10px" onclick="addCanal()">+ Adicionar canal</button></div>
@@ -264,6 +284,7 @@ svg text{font-family:inherit}
   <div><span style="font-family:Georgia,serif;font-weight:bold;font-size:18px;color:#fff">FinLab<span style="color:var(--amber)">.</span></span> &nbsp; Pessoas · Empresas · Jurídico</div>
   <div>Wanderson de Castro · Economista · Perito · Consultor · <a href="https://wandersocastrowc-arch.github.io/Portifolio" target="_blank" rel="noopener">Portfólio</a></div>
 </div></footer>
+<div id="printsheet" style="position:fixed;left:-10000px;top:0;width:794px"><div class="ps"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 "use strict";
@@ -485,21 +506,52 @@ function updateProfileLabel(){const el=document.getElementById("profile-now");if
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
-function savePDF(){var panel=document.querySelector('.panel.active')||document.body;
-  var t=document.querySelector('#tabs button.active');var name="precificadora-"+(t?t.dataset.t:"finlab")+".pdf";
-  if(!window.html2pdf){window.print();return;}
+function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(+it.custo||0)+"</td><td class=\"n\">"+brl((+it.qtd||0)*(+it.custo||0))+"</td></tr>";}).join("");}
+function buildPrintSheet(){
+  var D=state.detalhe||{deducoes:[]}, cv=custoVar();
+  var preco=+D.preco||0,run=preco,tot=0,detrows="";
+  (D.deducoes||[]).forEach(function(d){var v=d.tipo==="%"?preco*(+d.valor||0)/100:(+d.valor||0);run-=v;tot+=v;detrows+="<div class=\"kv\"><span>"+esc(d.nome)+(d.tipo==="%"?" ("+(+d.valor||0)+"%)":"")+"</span><span class=\"neg\">- "+brl(v)+"</span></div>";});
+  var lucro=run,pctL=preco>0?lucro/preco:NaN,rh=(+D.tempoH>0)?lucro/D.tempoH:NaN,pix=preco*(1-(+D.pix||0)/100);
+  var canrows=state.canais.lista.map(function(c){var r=canalCalc(c);return "<tr><td>"+esc(c.nome)+"</td><td class=\"n\">"+brl(r.sug)+"</td><td class=\"n\">"+brl(+c.praticado||0)+"</td><td class=\"n\">"+brl(r.contrib)+"</td><td class=\"n\">"+pct(r.contribPct)+"</td></tr>";}).join("");
+  var cf=fixoTotal(),cm=contribUsada(),ped=cm>0?cf/cm:NaN,ticket=+state.pe.ticket||0;
+  var html="<div class=\"ph\"><div class=\"brand\">FinLab<span class=\"d\">.</span></div><div class=\"sub\">Precificadora &middot; "+(state.profile==="padaria"?"Padaria &amp; Lanchonete":"iFood &amp; Marketplaces")+"<br>"+new Date().toLocaleDateString("pt-BR")+"</div></div>"+
+   "<h1>"+esc(state.ficha.produto||"Produto")+"</h1>"+
+   "<div class=\"cols\"><div class=\"col\">"+
+   "<h3>Ficha Técnica &mdash; custo variável</h3><table><thead><tr><th>Item</th><th class=\"n\">Qtd</th><th class=\"n\">R$/un</th><th class=\"n\">Total</th></tr></thead><tbody>"+psList(state.ficha.insumos)+psList(state.ficha.embalagem)+"</tbody></table>"+
+   "<div class=\"big\"><span>Custo variável unitário</span><span class=\"v\">"+brl(cv)+"</span></div>"+
+   "<h3>Ponto de Equilíbrio</h3>"+
+   "<div class=\"kv\"><span>Custo fixo mensal</span><span>"+brl(cf)+"</span></div>"+
+   "<div class=\"kv\"><span>Contribuição média / pedido</span><span>"+brl(cm)+"</span></div>"+
+   "<div class=\"kv\"><span><b>Pedidos/mês p/ empatar</b></span><span class=\"pos\">"+num(ped)+"</span></div>"+
+   "<div class=\"kv\"><span>Faturamento no equilíbrio</span><span>"+brl(ped*ticket)+"</span></div>"+
+   "</div><div class=\"col\">"+
+   "<h3>Preço por Canal</h3><table><thead><tr><th>Canal</th><th class=\"n\">Sugerido</th><th class=\"n\">Pratica</th><th class=\"n\">Contrib.</th><th class=\"n\">%</th></tr></thead><tbody>"+canrows+"</tbody></table>"+
+   "<h3>Detalhamento do preço</h3>"+
+   "<div class=\"kv\"><span><b>Preço de venda</b></span><span><b>"+brl(preco)+"</b></span></div>"+detrows+
+   "<div class=\"kv\"><span>Total de custos</span><span class=\"neg\">"+brl(tot)+"</span></div>"+
+   "<div class=\"big\"><span>Lucro &nbsp;<span class=\"badge\">"+pct(pctL)+"</span></span><span class=\"v\">"+brl(lucro)+"</span></div>"+
+   "<div class=\"kv\"><span>Por hora</span><span>"+(isFinite(rh)?brl(rh)+" /h":"—")+"</span></div>"+
+   "<div class=\"kv\"><span>Preço no Pix (-"+(+D.pix||0)+"%)</span><span>"+brl(pix)+"</span></div>"+
+   "</div></div>"+
+   "<div class=\"foot\"><span>Gerado pela Precificadora FinLab.</span><span>wandersocastrowc-arch.github.io/precificadora</span></div>";
+  document.querySelector("#printsheet .ps").innerHTML=html;
+}
+function savePDF(){
+  buildPrintSheet();
+  var name="precificadora-finlab.pdf",sheet=document.querySelector("#printsheet .ps");
   var isIOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
   var win=isIOS?window.open("","_blank"):null;
-  window.scrollTo(0,0);
-  var opt={margin:8,filename:name,image:{type:"jpeg",quality:0.98},
-    html2canvas:{scale:2,backgroundColor:getComputedStyle(document.body).backgroundColor,useCORS:true,windowWidth:document.documentElement.clientWidth,onclone:function(doc){doc.querySelectorAll(".stepnav").forEach(function(e){e.remove();});}},
-    jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"]}};
-  var worker=html2pdf().set(opt).from(panel);
-  if(isIOS){
-    worker.toPdf().get("pdf").then(function(pdf){var url=pdf.output("bloburl");if(win){win.location.href=url;}else{window.location.href=url;}}).catch(function(){if(win)win.close();window.print();});
-  }else{
-    worker.save().catch(function(){window.print();});
-  }}
+  function fb(){if(win)win.close();if(window.html2pdf){html2pdf().set({margin:8,filename:name,jsPDF:{unit:"mm",format:"a4"},html2canvas:{scale:2,backgroundColor:"#ffffff"}}).from(sheet).save();}else{window.print();}}
+  if(!window.html2canvas||!window.jspdf||!window.jspdf.jsPDF){fb();return;}
+  window.html2canvas(sheet,{scale:2,backgroundColor:"#ffffff",useCORS:true}).then(function(canvas){
+    var jsPDF=window.jspdf.jsPDF,pdf=new jsPDF("p","mm","a4");
+    var pw=210,ph=297,m=8,iw=pw-2*m,ih=canvas.height*iw/canvas.width;
+    if(ih>ph-2*m){ih=ph-2*m;iw=canvas.width*ih/canvas.height;}
+    pdf.addImage(canvas.toDataURL("image/jpeg",0.95),"JPEG",(pw-iw)/2,m,iw,ih);
+    if(isIOS){var url=pdf.output("bloburl");if(win){win.location.href=url;}else{window.location.href=url;}}
+    else{pdf.save(name);}
+  }).catch(fb);
+}
 document.addEventListener("input",onTableInput);
 bindInputs();render();buildStepNav();updateProfileLabel();wrapTables();setTab("inicio");
 </script>
