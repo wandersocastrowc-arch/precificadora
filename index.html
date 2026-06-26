@@ -237,6 +237,7 @@ svg text{font-family:inherit}
     <div class="card"><div class="row2"><div>
       <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
       <div class="field"><label>Margem de contribuição (desejada) %</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
+          <div id="margem-ref" class="hint" style="margin:-2px 0 10px;line-height:1.7"></div>
       <div class="field"><label>Tributo sobre a venda (%) <span style="color:var(--muted);font-weight:400">(MEI: deixe zerado, lance o DAS no custo fixo)</span></label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
     <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem desejada).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − quebra) − custo variável.</div></div></div>
@@ -447,7 +448,7 @@ function render(){
   document.getElementById("pe-frase").textContent=num(pedidos);
   document.getElementById("pe-dia").textContent=isFinite(pedidos)?(pedidos/30).toLocaleString("pt-BR",{maximumFractionDigits:1}):"—";
   document.getElementById("pe-fat").textContent=brl(pedidos*ticket);
-  dedRows();renderDetalhe();save();
+  dedRows();renderDetalhe();updateMargemRef();save();
 }
 function onTableInput(e){userTouched=true;const t=e.target;if(t.tagName!=="INPUT")return;
   if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un")?t.value:+t.value;}
@@ -512,6 +513,17 @@ function updateProfileLabel(){const el=document.getElementById("profile-now");if
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
+function setMargem(v){state.canais.margem=v;var el=document.getElementById("c-margem");if(el)el.value=v;render();}
+function updateMargemRef(){var el=document.getElementById("margem-ref");if(!el)return;
+  var m=+state.canais.margem||0,lab,col;
+  if(m<15){lab="Baixa — sobra pouco";col="#F87171";}
+  else if(m<30){lab="Ok";col="#FBBF24";}
+  else if(m<=50){lab="Saudável";col="#34D399";}
+  else{lab="Alta — cuidado, preço pode ficar caro";col="#FBBF24";}
+  el.innerHTML='<span class="pill" style="background:#10271D;color:'+col+'">'+lab+'</span> '+
+    '&nbsp;Referência geral: comida/lanchonete mira <b>30–50%</b>; revenda/marketplace <b>15–30%</b>.<br>'+
+    'Atalhos: <a href="#" onclick="setMargem(25);return false">25%</a> &middot; <a href="#" onclick="setMargem(35);return false">35%</a> &middot; <a href="#" onclick="setMargem(45);return false">45%</a> &middot; <a href="#" onclick="setMargem(55);return false">55%</a>';
+}
 function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(+it.custo||0)+"</td><td class=\"n\">"+brl((+it.qtd||0)*(+it.custo||0))+"</td></tr>";}).join("");}
 function buildPrintSheet(){
   var D=state.detalhe||{deducoes:[]}, cv=custoVar();
