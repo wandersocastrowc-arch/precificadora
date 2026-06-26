@@ -19,40 +19,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
 h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
 a{color:var(--amber-d);text-decoration:none}
 a:hover{text-decoration:underline}
-
 header{background:var(--deep);color:#fff;padding:18px 20px}
 .wrap{max-width:1080px;margin:0 auto}
 .brand{font-family:Georgia,serif;font-weight:bold;font-size:22px}
 .brand .dot{color:var(--amber)}
 .htitle{font-size:24px;font-weight:bold;margin:6px 0 2px}
 .hsub{color:#94A3B8;font-size:14px}
-
 nav.tabs{position:sticky;top:0;z-index:20;background:var(--navy);display:flex;flex-wrap:wrap;gap:2px;padding:0 8px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-nav.tabs button{background:transparent;border:0;color:#CBD5E1;font-size:14px;font-weight:600;
-  padding:13px 14px;cursor:pointer;border-bottom:3px solid transparent}
+nav.tabs button{background:transparent;border:0;color:#CBD5E1;font-size:14px;font-weight:600;padding:13px 14px;cursor:pointer;border-bottom:3px solid transparent}
 nav.tabs button:hover{color:#fff}
 nav.tabs button.active{color:#fff;border-bottom-color:var(--amber)}
-
 main{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
 .panel{display:none;animation:fade .2s ease}
 .panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-
 .kicker{color:var(--amber-d);font-weight:700;letter-spacing:2px;font-size:12px;text-transform:uppercase}
 .panel h2{font-size:26px;margin:4px 0 4px;color:var(--ink)}
 .lead{color:var(--muted);margin:0 0 18px;max-width:760px}
-
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;
-  box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
 .card h3{margin:0 0 12px;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
-
 table{width:100%;border-collapse:collapse}
 th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
 td.num,th.num{text-align:right}
 td.ctr,th.ctr{text-align:center}
 tbody tr:last-child td{border-bottom:0}
-
 input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 8px;width:100%;background:#fff}
 input:focus,select:focus{outline:2px solid var(--amber);border-color:var(--amber)}
 input.in{background:var(--amber-bg);border-color:#F3D9A8}
@@ -61,73 +52,75 @@ input[type=number]{text-align:right}
 .field{display:flex;align-items:center;gap:10px;margin:8px 0}
 .field label{flex:1;font-weight:600}
 .field input{max-width:140px}
-
-.btn{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:0;border-radius:8px;
-  padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px;cursor:pointer}
 .btn:hover{background:#16315A}
 .btn.amber{background:var(--amber);color:#3a2400}.btn.amber:hover{background:#ffb023}
 .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn.ghost:hover{background:#F1F5F9}
 .btn.sm{padding:5px 9px;font-size:13px}
-.btn.danger{background:#fff;color:var(--red);border:1px solid #f3c2c2}
 .iconbtn{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px}
 .iconbtn:hover{color:var(--red)}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
 .spacer{flex:1}
-
-.bignum{font-family:Georgia,serif;font-weight:bold;font-size:34px;color:var(--navy)}
 .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .stat{background:var(--navy);color:#fff;border-radius:10px;padding:14px 16px}
 .stat .v{font-family:Georgia,serif;font-weight:bold;font-size:26px;color:#fff}
 .stat .v.amber{color:var(--amber)}
 .stat .k{font-size:12px;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
-
 .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:13px}
 .pill.g{background:var(--green-bg);color:var(--green)}
 .pill.a{background:var(--amber-bg);color:var(--amber-d)}
 .pill.r{background:var(--red-bg);color:var(--red)}
-
 .totalrow td{border-top:2px solid var(--navy);font-weight:700;background:#F8FAFC}
-.amber-cell{background:var(--amber);color:#3a2400;font-weight:700;border-radius:6px}
-
 .note{background:var(--amber-bg);border:1px solid #F3D9A8;border-radius:10px;padding:12px 14px;color:#7a4a08;font-size:14px}
 .note.red{background:var(--red-bg);border-color:#f3c2c2;color:#8a1c1c}
-.muted{color:var(--muted)}
 .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:760px){.row2{grid-template-columns:1fr}.htitle{font-size:20px}.panel h2{font-size:22px}
-  .hide-sm{display:none}.bignum{font-size:28px}}
-
+@media(max-width:760px){.row2{grid-template-columns:1fr}.htitle{font-size:20px}.panel h2{font-size:22px}.hide-sm{display:none}}
 footer{background:var(--deep);color:#94A3B8;padding:22px 16px;font-size:13px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
 footer a{color:var(--amber)}
 svg .axis{stroke:var(--line);stroke-width:1}
 svg text{font-family:inherit}
-
-@media print{
-  nav.tabs,.toolbar,.iconbtn,header .hsub{display:none!important}
-  .panel{display:block!important;page-break-after:always}
-  body{background:#fff;font-size:12px}
-  .card{box-shadow:none}
-}
+.det-card{background:#0d1f3c;border:1px solid #1E3A5F;border-radius:16px;padding:22px;color:#E2E8F0;max-width:540px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+.det-head{color:#94A3B8;font-weight:700;letter-spacing:3px;font-size:12px;margin-bottom:14px}
+.det-price-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid #1E3A5F}
+.det-price-label{color:#fff;font-weight:600;display:flex;align-items:center;gap:8px}
+.det-price{font-family:Georgia,serif;font-weight:bold;font-size:30px;color:#fff}
+.det-line{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid #14294a}
+.det-l{display:flex;gap:10px}
+.det-br{color:#475569}
+.det-name{color:#fff;font-weight:600}
+.det-sub{color:#64748B;font-size:12px;margin-top:2px}
+.det-r{text-align:right;white-space:nowrap}
+.det-minus{color:#F87171;font-weight:700}
+.det-run{color:#64748B;font-size:12px;margin-top:2px}
+.det-total-row{display:flex;justify-content:space-between;padding:14px 0 2px;color:#F87171;font-weight:700}
+.det-prod{display:flex;justify-content:space-between;color:#94A3B8;font-size:13px;padding-bottom:12px}
+.det-lucro{background:#0c2b22;border:1px solid #1f7a52;border-radius:12px;padding:16px;margin-top:8px}
+.det-lucro-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.det-lucro-v{font-family:Georgia,serif;font-weight:bold;font-size:32px;color:#34D399}
+.det-lucro-pct{color:#34D399;font-weight:700}
+.det-badge{border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px}
+.det-rh{color:#94A3B8;font-size:13px;margin-top:8px}
+.det-pix{display:flex;justify-content:space-between;margin-top:14px;color:#CBD5E1}
+.det-pix b{color:#fff}
+@media print{nav.tabs,.toolbar,.iconbtn,header .hsub{display:none!important}.panel{display:block!important;page-break-after:always}body{background:#fff;font-size:12px}.card{box-shadow:none}}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <div class="brand">FinLab<span class="dot">.</span></div>
-    <div class="htitle">Precificadora · iFood &amp; Marketplaces</div>
-    <div class="hsub">Custo real, preço por canal e margem de contribuição — pare de faturar muito e lucrar pouco.</div>
-  </div>
-</header>
-
+<header><div class="wrap">
+  <div class="brand">FinLab<span class="dot">.</span></div>
+  <div class="htitle">Precificadora · iFood &amp; Marketplaces</div>
+  <div class="hsub">Custo real, preço por canal e margem de contribuição — pare de faturar muito e lucrar pouco.</div>
+</div></header>
 <nav class="tabs" id="tabs">
   <button data-t="inicio" class="active">Início</button>
   <button data-t="ficha">1 · Ficha Técnica</button>
   <button data-t="canal">2 · Preço por Canal</button>
   <button data-t="pe">3 · Ponto de Equilíbrio</button>
   <button data-t="rateio">4 · Rateio x Contribuição</button>
+  <button data-t="detalhe">5 · Detalhamento</button>
 </nav>
-
 <main>
   <div class="toolbar">
     <button class="btn amber sm" onclick="loadExample()">↺ Restaurar exemplo</button>
@@ -138,19 +131,17 @@ svg text{font-family:inherit}
     <input type="file" id="imp" accept="application/json" style="display:none" onchange="importJSON(event)">
     <button class="btn sm" onclick="window.print()">🖨 PDF / Imprimir</button>
   </div>
-
-  <!-- INÍCIO -->
   <section class="panel active" id="p-inicio">
     <div class="kicker">Comece aqui</div>
     <h2 class="serif">Como esta ferramenta funciona</h2>
-    <p class="lead">Quatro passos, na ordem. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
+    <p class="lead">Cinco passos. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
     <div class="row2">
-      <div class="card">
-        <h3>O caminho</h3>
+      <div class="card"><h3>O caminho</h3>
         <p><b>1 · Ficha Técnica</b> — monte o custo <i>variável</i> de uma unidade (insumos + embalagem + descartáveis).</p>
         <p><b>2 · Preço por Canal</b> — veja o preço sugerido e a contribuição de cada canal (iFood, WhatsApp, marketplaces).</p>
         <p><b>3 · Ponto de Equilíbrio</b> — onde o custo fixo entra: como meta mensal, não como rateio por produto.</p>
-        <p><b>4 · Rateio x Contribuição</b> — a demonstração de por que ratear o custo fixo no preço distorce.</p>
+        <p><b>4 · Rateio x Contribuição</b> — por que ratear o custo fixo no preço distorce.</p>
+        <p><b>5 · Detalhamento</b> — a cascata do preço: desconta cada custo e mostra o lucro, o R$/hora e o preço no Pix.</p>
       </div>
       <div class="card" style="background:var(--navy);color:#fff;border:0">
         <h3 style="color:var(--amber)">A ideia-chave sobre custo fixo</h3>
@@ -160,77 +151,49 @@ svg text{font-family:inherit}
       </div>
     </div>
   </section>
-
-  <!-- FICHA -->
   <section class="panel" id="p-ficha">
     <div class="kicker">Passo 1</div>
     <h2 class="serif">Ficha Técnica</h2>
     <p class="lead">O documento mais importante do negócio digital. Sem o custo da unidade, qualquer preço é chute.</p>
-    <div class="field" style="max-width:520px">
-      <label>Produto</label>
-      <input id="produto" style="max-width:340px" oninput="state.ficha.produto=this.value;save()">
-    </div>
-    <div class="card">
-      <h3>Insumos</h3>
-      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead>
-        <tbody id="tb-insumos"></tbody></table>
-      <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button>
-    </div>
-    <div class="card">
-      <h3>Embalagem e descartáveis</h3>
-      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead>
-        <tbody id="tb-emb"></tbody></table>
-      <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button>
-    </div>
+    <div class="field" style="max-width:520px"><label>Produto</label>
+      <input id="produto" style="max-width:340px" oninput="state.ficha.produto=this.value;save()"></div>
+    <div class="card"><h3>Insumos</h3>
+      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
+      <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button></div>
+    <div class="card"><h3>Embalagem e descartáveis</h3>
+      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
+      <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button></div>
     <div class="statgrid">
       <div class="stat"><div class="v amber" id="s-insumos">R$ 0,00</div><div class="k">Subtotal insumos</div></div>
       <div class="stat"><div class="v amber" id="s-emb">R$ 0,00</div><div class="k">Subtotal embalagem</div></div>
       <div class="stat" style="background:var(--amber)"><div class="v" style="color:var(--deep)" id="s-custovar">R$ 0,00</div><div class="k" style="color:#7a4a08">Custo variável unitário</div></div>
     </div>
   </section>
-
-  <!-- CANAL -->
   <section class="panel" id="p-canal">
     <div class="kicker">Passo 2</div>
     <h2 class="serif">Preço por Canal</h2>
     <p class="lead">Cada canal tem um pedágio diferente — logo, um preço diferente. O custo fixo <b>não</b> entra aqui.</p>
-    <div class="card">
-      <div class="row2">
-        <div>
-          <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
-          <div class="field"><label>Margem de contribuição alvo (%)</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
-          <div class="field"><label>Tributo sobre a venda (%) — ex.: Simples</label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
-        </div>
-        <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem alvo).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − erro) − custo variável.</div>
-      </div>
+    <div class="card"><div class="row2"><div>
+      <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
+      <div class="field"><label>Margem de contribuição alvo (%)</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
+      <div class="field"><label>Tributo sobre a venda (%) — ex.: Simples</label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
     </div>
-    <div class="card">
-      <h3>Canais</h3>
-      <div style="overflow-x:auto">
-      <table id="tbl-canal"><thead><tr>
-        <th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Erro %</th>
-        <th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th>
-      </tr></thead><tbody id="tb-canais"></tbody></table>
-      </div>
-      <button class="btn ghost sm" style="margin-top:10px" onclick="addCanal()">+ Adicionar canal</button>
-    </div>
+    <div class="note">Preço sugerido = custo variável ÷ (1 − taxas − tributo − margem alvo).<br><br>Contribuição praticada = preço × (1 − taxas − tributo − erro) − custo variável.</div></div></div>
+    <div class="card"><h3>Canais</h3><div style="overflow-x:auto">
+      <table><thead><tr><th>Canal</th><th class="num">Comissão %</th><th class="num">Taxa pagto %</th><th class="num">Erro %</th><th class="num">Preço sugerido</th><th class="num">Preço que pratica</th><th class="num">Contrib. R$/un</th><th class="ctr">Contrib. %</th><th></th></tr></thead><tbody id="tb-canais"></tbody></table>
+      </div><button class="btn ghost sm" style="margin-top:10px" onclick="addCanal()">+ Adicionar canal</button></div>
     <div class="note red">⚠ Repare: o custo fixo não aparece neste preço. Ele é coberto pela soma das contribuições — veja o passo 3.</div>
   </section>
-
-  <!-- PONTO DE EQUILÍBRIO -->
   <section class="panel" id="p-pe">
     <div class="kicker">Passo 3</div>
     <h2 class="serif">Custo Fixo &amp; Ponto de Equilíbrio</h2>
     <p class="lead">Aqui é onde o custo fixo vive: uma meta mensal coberta pela soma das contribuições — não um valor por produto.</p>
     <div class="row2">
-      <div class="card">
-        <h3>Custo fixo mensal</h3>
+      <div class="card"><h3>Custo fixo mensal</h3>
         <table><thead><tr><th>Item</th><th class="num">R$ / mês</th><th></th></tr></thead><tbody id="tb-fixo"></tbody>
-          <tfoot><tr class="totalrow"><td>Total custo fixo</td><td class="num" id="f-total">R$ 0,00</td><td></td></tr></tfoot></table>
-        <button class="btn ghost sm" style="margin-top:10px" onclick="addFixo()">+ Adicionar custo</button>
-      </div>
-      <div class="card">
-        <h3>Ponto de equilíbrio</h3>
+        <tfoot><tr class="totalrow"><td>Total custo fixo</td><td class="num" id="f-total">R$ 0,00</td><td></td></tr></tfoot></table>
+        <button class="btn ghost sm" style="margin-top:10px" onclick="addFixo()">+ Adicionar custo</button></div>
+      <div class="card"><h3>Ponto de equilíbrio</h3>
         <div class="field"><label>Contribuição média por pedido (R$)</label><input id="pe-contrib" type="number" step="0.5" class="in" oninput="state.pe.contribManual=+this.value;render()"></div>
         <p class="hint">Média automática dos canais: <b id="pe-auto">R$ 0,00</b> · <a href="#" onclick="state.pe.contribManual=null;render();return false">usar a média automática</a></p>
         <div class="field"><label>Ticket médio por pedido (R$)</label><input id="pe-ticket" type="number" step="0.5" class="in" oninput="state.pe.ticket=+this.value;render()"></div>
@@ -238,62 +201,60 @@ svg text{font-family:inherit}
           <div class="stat"><div class="v amber" id="pe-pedidos">0</div><div class="k">Pedidos / mês p/ empatar</div></div>
           <div class="stat"><div class="v" id="pe-dia">0</div><div class="k">Pedidos por dia (≈30)</div></div>
           <div class="stat"><div class="v" id="pe-fat">R$ 0</div><div class="k">Faturamento no equilíbrio</div></div>
-        </div>
-      </div>
+        </div></div>
     </div>
     <div class="note"><b>Leitura:</b> você precisa de <b id="pe-frase">0</b> pedidos por mês só para pagar o custo fixo. Cada pedido acima disso é lucro. Por isso o custo fixo não cabe no preço de um produto — ele é uma meta do mês inteiro.</div>
   </section>
-
-  <!-- RATEIO -->
   <section class="panel" id="p-rateio">
     <div class="kicker">Passo 4</div>
     <h2 class="serif">Por que o rateio distorce</h2>
     <p class="lead">O mesmo custo fixo, dois métodos. Veja o preço pelo rateio explodir quando o volume cai.</p>
-    <div class="card">
-      <div class="row2">
-        <div>
-          <div class="field"><label>Custo fixo mensal (do passo 3)</label><input id="r-fixo" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
-          <div class="field"><label>Custo variável unitário (da ficha)</label><input id="r-var" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
-        </div>
-        <div>
-          <div class="field"><label>Markup desejado no rateio (%)</label><input class="in" type="number" step="1" id="r-markup" oninput="state.rateio.markup=+this.value;render()"></div>
-          <div class="field"><label>Preço de mercado / praticado (R$)</label><input class="in" type="number" step="0.5" id="r-preco" oninput="state.rateio.preco=+this.value;render()"></div>
-        </div>
+    <div class="card"><div class="row2">
+      <div>
+        <div class="field"><label>Custo fixo mensal (do passo 3)</label><input id="r-fixo" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
+        <div class="field"><label>Custo variável unitário (da ficha)</label><input id="r-var" disabled style="max-width:140px;background:#eef2f7;color:var(--green);font-weight:700"></div>
       </div>
-      <div class="field" style="max-width:560px">
-        <label>Cenários de volume (pedidos/mês)</label>
+      <div>
+        <div class="field"><label>Markup desejado no rateio (%)</label><input class="in" type="number" step="1" id="r-markup" oninput="state.rateio.markup=+this.value;render()"></div>
+        <div class="field"><label>Preço de mercado / praticado (R$)</label><input class="in" type="number" step="0.5" id="r-preco" oninput="state.rateio.preco=+this.value;render()"></div>
+      </div></div>
+      <div class="field" style="max-width:560px"><label>Cenários de volume (pedidos/mês)</label>
         <input class="in" type="number" id="r-v0" oninput="state.rateio.vol[0]=+this.value;render()">
         <input class="in" type="number" id="r-v1" oninput="state.rateio.vol[1]=+this.value;render()">
-        <input class="in" type="number" id="r-v2" oninput="state.rateio.vol[2]=+this.value;render()">
-      </div>
-    </div>
+        <input class="in" type="number" id="r-v2" oninput="state.rateio.vol[2]=+this.value;render()"></div></div>
     <div class="row2">
-      <div class="card">
-        <h3 style="color:var(--red)">Método 1 · Rateio (custo cheio + markup)</h3>
-        <table><tbody id="tb-rateio"></tbody></table>
-        <p class="hint">O preço &ldquo;necessário&rdquo; muda com o volume. Vende menos &rarr; preço sobe &rarr; vende menos.</p>
-      </div>
-      <div class="card">
-        <h3 style="color:var(--green)">Método 2 · Contribuição (preço de mercado fixo)</h3>
-        <table><tbody id="tb-contrib"></tbody></table>
-        <p class="hint">O preço não muda; o volume cobre o custo fixo.</p>
-      </div>
+      <div class="card"><h3 style="color:var(--red)">Método 1 · Rateio (custo cheio + markup)</h3><table><tbody id="tb-rateio"></tbody></table>
+        <p class="hint">O preço &ldquo;necessário&rdquo; muda com o volume. Vende menos &rarr; preço sobe &rarr; vende menos.</p></div>
+      <div class="card"><h3 style="color:var(--green)">Método 2 · Contribuição (preço de mercado fixo)</h3><table><tbody id="tb-contrib"></tbody></table>
+        <p class="hint">O preço não muda; o volume cobre o custo fixo.</p></div>
     </div>
-    <div class="card">
-      <h3>Preço necessário: rateio x preço de mercado</h3>
-      <div id="chart"></div>
-    </div>
+    <div class="card"><h3>Preço necessário: rateio x preço de mercado</h3><div id="chart"></div></div>
     <div class="note"><b>Moral:</b> o rateio sobe o preço justamente quando o movimento cai — e preço alto afasta cliente, que derruba o volume de novo (a espiral). Na contribuição, o preço é estável e o custo fixo é coberto pelo volume. <b>Custo variável manda no preço mínimo; o custo fixo é meta de volume, não imposto por produto.</b></div>
   </section>
+  <section class="panel" id="p-detalhe">
+    <div class="kicker">Detalhamento</div>
+    <h2 class="serif">Detalhamento do preço</h2>
+    <p class="lead">Coloque o preço de venda e os custos — a ferramenta desconta um por um, mostra quanto sobra a cada passo e o lucro final.</p>
+    <div class="row2">
+      <div>
+        <div class="card">
+          <div class="field"><label>Preço de venda (R$)</label><input class="in" type="number" step="0.5" id="det-preco" oninput="state.detalhe.preco=+this.value;renderDetalhe();save()"></div>
+          <div class="field"><label>Tempo de produção (horas)</label><input class="in" type="number" step="0.5" id="det-tempo" oninput="state.detalhe.tempoH=+this.value;renderDetalhe();save()"></div>
+          <div class="field"><label>Desconto no Pix (%)</label><input class="in" type="number" step="0.5" id="det-pix" oninput="state.detalhe.pix=+this.value;renderDetalhe();save()"></div>
+        </div>
+        <div class="card"><h3>Custos e descontos</h3>
+          <table><thead><tr><th>Item</th><th class="ctr">Tipo</th><th class="num">Valor</th><th class="ctr">Produção?</th><th></th></tr></thead><tbody id="tb-ded"></tbody></table>
+          <button class="btn ghost sm" style="margin-top:10px" onclick="addDed()">+ Adicionar custo</button>
+          <p class="hint">“Tipo %” = porcentagem do preço de venda; “R$” = valor fixo. Marque “Produção?” nos custos físicos (energia, filamento/insumo, embalagem) — eles somam num subtotal à parte.</p></div>
+      </div>
+      <div><div id="det-out"></div></div>
+    </div>
+  </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <div><span style="font-family:Georgia,serif;font-weight:bold;font-size:18px;color:#fff">FinLab<span style="color:var(--amber)">.</span></span> &nbsp; Pessoas · Empresas · Jurídico</div>
-    <div>Wanderson de Castro · Economista · Perito · Consultor · <a href="https://wandersocastrowc-arch.github.io/Portifolio" target="_blank" rel="noopener">Portfólio</a></div>
-  </div>
-</footer>
-
+<footer><div class="wrap">
+  <div><span style="font-family:Georgia,serif;font-weight:bold;font-size:18px;color:#fff">FinLab<span style="color:var(--amber)">.</span></span> &nbsp; Pessoas · Empresas · Jurídico</div>
+  <div>Wanderson de Castro · Economista · Perito · Consultor · <a href="https://wandersocastrowc-arch.github.io/Portifolio" target="_blank" rel="noopener">Portfólio</a></div>
+</div></footer>
 <script>
 "use strict";
 const KEY="finlab_precificadora_v1";
@@ -301,37 +262,27 @@ const brl=n=>isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BR
 const pct=n=>isFinite(n)?(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%":"—";
 const num=n=>isFinite(n)?Math.round(n).toLocaleString("pt-BR"):"—";
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-
 function defaults(){return{
   ficha:{produto:"Hambúrguer Artesanal (combo)",
-    insumos:[["Pão brioche","un",1,1.20],["Hambúrguer 120g","un",1,3.50],["Queijo cheddar","fatia",2,0.45],
-      ["Bacon","g",20,0.06],["Molho da casa","porção",1,0.40],["Alface e tomate","porção",1,0.30],["Batata (acompanha)","g",120,0.012]]
-      .map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
-    embalagem:[["Embalagem do combo","un",1,1.10],["Sachê de ketchup","un",2,0.18],["Guardanapo","un",2,0.05],
-      ["Sacola delivery","un",1,0.25],["Talher descartável","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
+    insumos:[["Pão brioche","un",1,1.20],["Hambúrguer 120g","un",1,3.50],["Queijo cheddar","fatia",2,0.45],["Bacon","g",20,0.06],["Molho da casa","porção",1,0.40],["Alface e tomate","porção",1,0.30],["Batata (acompanha)","g",120,0.012]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
+    embalagem:[["Embalagem do combo","un",1,1.10],["Sachê de ketchup","un",2,0.18],["Guardanapo","un",2,0.05],["Sacola delivery","un",1,0.25],["Talher descartável","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
   canais:{margem:35,tributo:6,
-    lista:[["Balcão / loja física",0,0,1,28],["WhatsApp / venda direta",0,0,2,28],["iFood — Plano Básico",12,3.2,4,32],
-      ["iFood — Plano Entrega",23,3.2,4,36],["Mercado Livre",16,0,6,34],["Shopee",20,0,6,35]]
-      .map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
+    lista:[["Balcão / loja física",0,0,1,28],["WhatsApp / venda direta",0,0,2,28],["iFood — Plano Básico",12,3.2,4,32],["iFood — Plano Entrega",23,3.2,4,36],["Mercado Livre",16,0,6,34],["Shopee",20,0,6,35]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
   pe:{contribManual:null,ticket:32,
-    fixo:[["Aluguel",4500],["Energia e água",1200],["Internet e telefone",250],["Salários + encargos",8000],
-      ["Pró-labore (dono)",4000],["Contador",600],["Softwares e apps",300],["Mensalidade iFood",150],
-      ["Marketing fixo",700],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
-  rateio:{markup:30,preco:32,vol:[1500,1000,500]}
+    fixo:[["Aluguel",4500],["Energia e água",1200],["Internet e telefone",250],["Salários + encargos",8000],["Pró-labore (dono)",4000],["Contador",600],["Softwares e apps",300],["Mensalidade iFood",150],["Marketing fixo",700],["Outros",500]].map(r=>({nome:r[0],valor:r[1]}))},
+  rateio:{markup:30,preco:32,vol:[1500,1000,500]},
+  detalhe:{preco:99.90,tempoH:3,pix:5,
+    deducoes:[["Imposto","%",12,false],["Taxa cartão","%",3,false],["Energia elétrica","%",0.3,true],["Filamento / insumo","%",3.3,true],["Embalagem","%",1.5,true]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
 };}
-
 let state=load();
-function load(){try{const s=localStorage.getItem(KEY);return s?JSON.parse(s):defaults();}catch(e){return defaults();}}
+function load(){const d=defaults();try{const s=localStorage.getItem(KEY);if(!s)return d;return Object.assign(d,JSON.parse(s));}catch(e){return d;}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 function loadExample(){state=defaults();save();bindInputs();render();}
 function clearAll(){if(!confirm("Limpar todos os dados?"))return;
   state=defaults();state.ficha.produto="";state.ficha.insumos=[];state.ficha.embalagem=[];
   state.canais.lista.forEach(c=>{c.comissao=0;c.pagto=0;c.erro=0;c.praticado=0;});
   state.pe.fixo.forEach(f=>f.valor=0);state.rateio.preco=0;save();bindInputs();render();}
-
-// ---- compute ----
-function custoVar(){const s=a=>a.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);
-  return s(state.ficha.insumos)+s(state.ficha.embalagem);}
+function custoVar(){const s=a=>a.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);return s(state.ficha.insumos)+s(state.ficha.embalagem);}
 function subIns(){return state.ficha.insumos.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);}
 function subEmb(){return state.ficha.embalagem.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);}
 function canalCalc(c){const cv=custoVar(),m=state.canais.margem/100,tr=state.canais.tributo/100;
@@ -341,11 +292,8 @@ function canalCalc(c){const cv=custoVar(),m=state.canais.margem/100,tr=state.can
   const contribPct=(+c.praticado>0)?contrib/c.praticado:NaN;
   return{sug,contrib,contribPct};}
 function fixoTotal(){return state.pe.fixo.reduce((t,f)=>t+(+f.valor||0),0);}
-function contribAuto(){const xs=state.canais.lista.map(c=>canalCalc(c).contrib).filter(isFinite);
-  return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:NaN;}
+function contribAuto(){const xs=state.canais.lista.map(c=>canalCalc(c).contrib).filter(isFinite);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:NaN;}
 function contribUsada(){return (state.pe.contribManual!=null&&state.pe.contribManual!=="")?+state.pe.contribManual:contribAuto();}
-
-// ---- render ----
 function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML="";
   state.ficha[key].forEach((it,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(it.nome)}" data-k="${key}" data-i="${i}" data-f="nome"></td>
@@ -355,11 +303,8 @@ function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML
       <td class="num">${brl((+it.qtd||0)*(+it.custo||0))}</td>
       <td><button class="iconbtn" title="Remover" onclick="delRow('${key}',${i})">✕</button></td>`;
     tb.appendChild(tr);});}
-
 function canalRows(){const tb=document.getElementById("tb-canais");tb.innerHTML="";
-  state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);
-    let cls=r.contribPct>=0.30?"g":r.contribPct>=0.15?"a":"r";
-    const tr=document.createElement("tr");
+  state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);let cls=r.contribPct>=0.30?"g":r.contribPct>=0.15?"a":"r";const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(c.nome)}" data-c="${i}" data-f="nome"></td>
       <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.comissao}" data-c="${i}" data-f="comissao"></td>
       <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.pagto}" data-c="${i}" data-f="pagto"></td>
@@ -370,14 +315,12 @@ function canalRows(){const tb=document.getElementById("tb-canais");tb.innerHTML=
       <td class="ctr"><span class="pill ${cls}">${pct(r.contribPct)}</span></td>
       <td><button class="iconbtn" onclick="delCanal(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
-
 function fixoRows(){const tb=document.getElementById("tb-fixo");tb.innerHTML="";
   state.pe.fixo.forEach((f,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(f.nome)}" data-x="${i}" data-f="nome"></td>
       <td class="num"><input class="w-money in" type="number" step="50" value="${f.valor}" data-x="${i}" data-f="valor"></td>
       <td><button class="iconbtn" onclick="delFixo(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
-
 function rateioRows(){
   const cf=fixoTotal(),cv=custoVar(),mk=state.rateio.markup/100,pm=+state.rateio.preco||0,vol=state.rateio.vol;
   const labels=["Movimento alto","Movimento médio","Movimento fraco"];
@@ -387,7 +330,6 @@ function rateioRows(){
   h1+=`<tr><td>Custo total por unidade</td>`+ctu.map(x=>`<td class="num">${brl(x)}</td>`).join("")+`</tr>`;
   h1+=`<tr class="totalrow"><td>Preço &ldquo;necessário&rdquo; (×1+markup)</td>`+need.map(x=>`<td class="num" style="color:var(--red)">${brl(x)}</td>`).join("")+`</tr>`;
   document.getElementById("tb-rateio").innerHTML=h1;
-
   const cu=pm-cv, ctot=vol.map(v=>cu*v), res=ctot.map(x=>x-cf);
   let h2=`<tr><td></td>`+vol.map((v)=>`<td class="num" style="color:var(--muted);font-weight:700">${num(v)}</td>`).join("")+`</tr>`;
   h2+=`<tr><td>Preço praticado</td>`+vol.map(()=>`<td class="num">${brl(pm)}</td>`).join("")+`</tr>`;
@@ -397,36 +339,56 @@ function rateioRows(){
   document.getElementById("tb-contrib").innerHTML=h2;
   drawChart(vol,need,pm);
 }
-
 function drawChart(vol,need,pm){
   const W=640,H=300,pad={l:62,r:120,t:18,b:42};
   const n=vol.length>1?vol.length-1:1;
   const xs=vol.map((v,i)=>pad.l+i*((W-pad.l-pad.r)/n));
   const all=need.concat([pm]).filter(isFinite); let max=Math.max(...all,1)*1.15;
   const y=v=>pad.t+(H-pad.t-pad.b)*(1-v/max);
-  const line=(arr,col)=>`<polyline fill="none" stroke="${col}" stroke-width="3.5" points="${arr.map((v,i)=>xs[i]+','+y(v)).join(" ")}"/>`+
-    arr.map((v,i)=>`<circle cx="${xs[i]}" cy="${y(v)}" r="4.5" fill="${col}"/>`).join("");
+  const line=(arr,col)=>`<polyline fill="none" stroke="${col}" stroke-width="3.5" points="${arr.map((v,i)=>xs[i]+','+y(v)).join(" ")}"/>`+arr.map((v,i)=>`<circle cx="${xs[i]}" cy="${y(v)}" r="4.5" fill="${col}"/>`).join("");
   let grid="",ticks=4;
   for(let g=0;g<=ticks;g++){const val=max*g/ticks,yy=y(val);
-    grid+=`<line class="axis" x1="${pad.l}" y1="${yy}" x2="${W-pad.r}" y2="${yy}"/>`+
-      `<text x="${pad.l-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#64748B">${brl(val)}</text>`;}
+    grid+=`<line class="axis" x1="${pad.l}" y1="${yy}" x2="${W-pad.r}" y2="${yy}"/><text x="${pad.l-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#64748B">${brl(val)}</text>`;}
   let xlab=vol.map((v,i)=>`<text x="${xs[i]}" y="${H-pad.b+20}" text-anchor="middle" font-size="11" fill="#64748B">${num(v)}</text>`).join("");
-  const legend=`<g font-size="12">
-    <rect x="${W-pad.r+6}" y="${pad.t+8}" width="14" height="3.5" fill="#E02424"/><text x="${W-pad.r+24}" y="${pad.t+14}" fill="#334155">Rateio</text>
-    <rect x="${W-pad.r+6}" y="${pad.t+30}" width="14" height="3.5" fill="#F59E0B"/><text x="${W-pad.r+24}" y="${pad.t+36}" fill="#334155">Mercado</text></g>`;
-  document.getElementById("chart").innerHTML=
-    `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-width:640px">${grid}`+
-    `${line(vol.map(()=>pm),"#F59E0B")}${line(need,"#E02424")}${xlab}${legend}</svg>`;
+  const legend=`<g font-size="12"><rect x="${W-pad.r+6}" y="${pad.t+8}" width="14" height="3.5" fill="#E02424"/><text x="${W-pad.r+24}" y="${pad.t+14}" fill="#334155">Rateio</text><rect x="${W-pad.r+6}" y="${pad.t+30}" width="14" height="3.5" fill="#F59E0B"/><text x="${W-pad.r+24}" y="${pad.t+36}" fill="#334155">Mercado</text></g>`;
+  document.getElementById("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-width:640px">${grid}`+`${line(vol.map(()=>pm),"#F59E0B")}${line(need,"#E02424")}${xlab}${legend}</svg>`;
 }
-
+function dedRows(){const tb=document.getElementById("tb-ded");tb.innerHTML="";
+  state.detalhe.deducoes.forEach((d,i)=>{const tr=document.createElement("tr");
+    tr.innerHTML=`<td><input value="${esc(d.nome)}" oninput="setDed(${i},'nome',this.value)"></td>
+      <td class="ctr"><select onchange="setDed(${i},'tipo',this.value)" style="max-width:72px"><option value="%" ${d.tipo==='%'?'selected':''}>%</option><option value="R$" ${d.tipo==='R$'?'selected':''}>R$</option></select></td>
+      <td class="num"><input class="w-pct in" type="number" step="0.1" value="${d.valor}" oninput="setDed(${i},'valor',this.value)"></td>
+      <td class="ctr"><input type="checkbox" style="width:auto" ${d.prod?'checked':''} onchange="setDed(${i},'prod',this.checked)"></td>
+      <td><button class="iconbtn" onclick="delDed(${i})">✕</button></td>`;
+    tb.appendChild(tr);});}
+function setDed(i,f,v){state.detalhe.deducoes[i][f]=(f==='nome'||f==='tipo')?v:(f==='prod'?v:+v);renderDetalhe();save();}
+function addDed(){state.detalhe.deducoes.push({nome:"Novo custo",tipo:"%",valor:0,prod:false});render();}
+function delDed(i){state.detalhe.deducoes.splice(i,1);render();}
+function renderDetalhe(){
+  const D=state.detalhe,preco=+D.preco||0;
+  let run=preco,totalCustos=0,prod=0,lines="";
+  D.deducoes.forEach(d=>{
+    const val=d.tipo==="%"?preco*(+d.valor||0)/100:(+d.valor||0);
+    run-=val;totalCustos+=val;if(d.prod)prod+=val;
+    const sub=d.tipo==="%"?((+d.valor||0).toLocaleString("pt-BR")+"%"):"valor fixo";
+    lines+=`<div class="det-line"><div class="det-l"><span class="det-br">└</span><div><div class="det-name">${esc(d.nome)}</div><div class="det-sub">${sub}</div></div></div><div class="det-r"><div class="det-minus">− ${brl(val)}</div><div class="det-run">= ${brl(run)}</div></div></div>`;
+  });
+  const lucro=run,pctL=preco>0?lucro/preco:NaN,rh=(+D.tempoH>0)?lucro/D.tempoH:NaN;
+  const pixPreco=preco*(1-(+D.pix||0)/100);
+  let bt="Prejuízo";
+  if(pctL>=0.5)bt="Excelente";else if(pctL>=0.35)bt="Ótimo";else if(pctL>=0.2)bt="Bom";else if(pctL>=0.1)bt="Atenção";else if(pctL>=0)bt="Baixo";
+  const lucroGreen=pctL>=0.2, gC=lucroGreen?"#34D399":(pctL>=0?"#FBBF24":"#F87171");
+  const lucroBox=lucroGreen?"background:#0c2b22;border-color:#1f7a52":(pctL>=0?"background:#2a2410;border-color:#7a5d1f":"background:#2a1414;border-color:#7a1f1f");
+  const badge=`<span class="det-badge" style="background:${lucroGreen?'#114b35':'#3a1414'};color:${gC}">${bt}</span>`;
+  document.getElementById("det-out").innerHTML=`<div class="det-card"><div class="det-head">DETALHAMENTO</div><div class="det-price-row"><div class="det-price-label">🏷️ Preço de venda</div><div class="det-price">${brl(preco)}</div></div>${lines}<div class="det-total-row"><span>Total de custos</span><span>${brl(totalCustos)}</span></div><div class="det-prod"><span>Custos de produção (marcados)</span><span>${brl(prod)}</span></div><div class="det-lucro" style="${lucroBox}"><div class="det-lucro-top"><div class="det-lucro-v" style="color:${gC}">${brl(lucro)}</div><div class="det-lucro-pct" style="color:${gC}">${pct(pctL)}</div>${badge}</div><div class="det-rh">⏱️ ${isFinite(rh)?brl(rh):"—"}/hora${isFinite(rh)?"":" (defina o tempo)"}</div></div><div class="det-pix"><span>Preço no Pix (−${(+D.pix||0).toLocaleString("pt-BR")}%)</span><b>${brl(pixPreco)}</b></div></div>`;
+}
 function render(){
   document.getElementById("s-insumos").textContent=brl(subIns());
   document.getElementById("s-emb").textContent=brl(subEmb());
   document.getElementById("s-custovar").textContent=brl(custoVar());
   fichaRows("insumos","tb-insumos");fichaRows("embalagem","tb-emb");
   document.getElementById("c-custovar").value=brl(custoVar());
-  canalRows();
-  fixoRows();
+  canalRows();fixoRows();
   document.getElementById("f-total").textContent=brl(fixoTotal());
   document.getElementById("pe-auto").textContent=brl(contribAuto());
   const cu=contribUsada(),cf=fixoTotal(),pedidos=cu>0?cf/cu:NaN,ticket=+state.pe.ticket||0;
@@ -436,18 +398,12 @@ function render(){
   document.getElementById("pe-fat").textContent=brl(pedidos*ticket);
   document.getElementById("r-fixo").value=brl(fixoTotal());
   document.getElementById("r-var").value=brl(custoVar());
-  rateioRows();
-  save();
+  rateioRows();dedRows();renderDetalhe();save();
 }
-
-// ---- input wiring (delegated for table edits) ----
 function onTableInput(e){const t=e.target;if(t.tagName!=="INPUT")return;
-  if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;
-    it[f]=(f==="nome"||f==="un")?t.value:+t.value;}
-  else if(t.dataset.c!=null){const c=state.canais.lista[+t.dataset.c];const f=t.dataset.f;
-    c[f]=(f==="nome")?t.value:+t.value;}
-  else if(t.dataset.x!=null){const x=state.pe.fixo[+t.dataset.x];const f=t.dataset.f;
-    x[f]=(f==="nome")?t.value:+t.value;}
+  if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un")?t.value:+t.value;}
+  else if(t.dataset.c!=null){const c=state.canais.lista[+t.dataset.c];const f=t.dataset.f;c[f]=(f==="nome")?t.value:+t.value;}
+  else if(t.dataset.x!=null){const x=state.pe.fixo[+t.dataset.x];const f=t.dataset.f;x[f]=(f==="nome")?t.value:+t.value;}
   else return;
   refreshDerived();save();}
 function refreshDerived(){
@@ -455,8 +411,7 @@ function refreshDerived(){
   document.getElementById("s-emb").textContent=brl(subEmb());
   document.getElementById("s-custovar").textContent=brl(custoVar());
   document.getElementById("c-custovar").value=brl(custoVar());
-  [["insumos","tb-insumos"],["embalagem","tb-emb"]].forEach(([k,id])=>{
-    const rows=document.getElementById(id).children;
+  [["insumos","tb-insumos"],["embalagem","tb-emb"]].forEach(([k,id])=>{const rows=document.getElementById(id).children;
     state.ficha[k].forEach((it,i)=>{if(rows[i])rows[i].children[4].textContent=brl((+it.qtd||0)*(+it.custo||0));});});
   const crows=document.getElementById("tb-canais").children;
   state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);const tr=crows[i];if(!tr)return;
@@ -474,14 +429,12 @@ function refreshDerived(){
   document.getElementById("r-var").value=brl(custoVar());
   rateioRows();
 }
-
 function addRow(key){state.ficha[key].push({nome:"",un:"un",qtd:1,custo:0});render();}
 function delRow(key,i){state.ficha[key].splice(i,1);render();}
 function addCanal(){state.canais.lista.push({nome:"Novo canal",comissao:0,pagto:0,erro:0,praticado:0});render();}
 function delCanal(i){state.canais.lista.splice(i,1);render();}
 function addFixo(){state.pe.fixo.push({nome:"",valor:0});render();}
 function delFixo(i){state.pe.fixo.splice(i,1);render();}
-
 function bindInputs(){
   document.getElementById("produto").value=state.ficha.produto;
   document.getElementById("c-margem").value=state.canais.margem;
@@ -493,20 +446,17 @@ function bindInputs(){
   document.getElementById("r-v0").value=state.rateio.vol[0];
   document.getElementById("r-v1").value=state.rateio.vol[1];
   document.getElementById("r-v2").value=state.rateio.vol[2];
+  document.getElementById("det-preco").value=state.detalhe.preco;
+  document.getElementById("det-tempo").value=state.detalhe.tempoH;
+  document.getElementById("det-pix").value=state.detalhe.pix;
 }
-
 document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
   document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
   document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
   document.getElementById("p-"+b.dataset.t).classList.add("active");window.scrollTo(0,0);});
-
-function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
-  a.download="precificadora-finlab.json";a.click();}
+function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
-  r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}
-    catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
-
+  r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
 document.addEventListener("input",onTableInput);
 bindInputs();render();
 </script>
