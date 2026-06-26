@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Precificadora · iFood &amp; Marketplaces — FinLab.</title>
 <meta name="description" content="Precificadora por canal para iFood, marketplaces e delivery. Calcule custo, preço e margem de contribuição. Por FinLab.">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wandersocastrowc-arch.github.io/precificadora/">
+<meta property="og:title" content="Precificadora · FinLab.">
+<meta property="og:description" content="Calcule custo real, preço por canal e margem de contribuição — padaria, lanchonete, iFood e marketplaces.">
+<meta property="og:image" content="https://wandersocastrowc-arch.github.io/precificadora/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="FinLab.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Precificadora · FinLab.">
+<meta name="twitter:description" content="Custo, preço por canal e margem de contribuição. Por FinLab.">
+<meta name="twitter:image" content="https://wandersocastrowc-arch.github.io/precificadora/og.png">
 <style>
 :root{
   --navy:#0F1A16; --navy2:#16241F; --deep:#070C0A; --amber:#59F4B2; --amber-d:#59F4B2;
@@ -25,10 +39,13 @@ header{background:var(--deep);color:#fff;padding:18px 20px}
 .brand .dot{color:var(--amber)}
 .htitle{font-size:24px;font-weight:bold;margin:6px 0 2px}
 .hsub{color:#94A3B8;font-size:14px}
-nav.tabs{position:sticky;top:0;z-index:20;background:var(--navy);display:flex;flex-wrap:wrap;gap:2px;padding:0 8px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+nav.tabs{background:var(--navy);display:flex;flex-wrap:wrap;gap:2px;padding:0 8px}
 nav.tabs button{background:transparent;border:0;color:#CBD5E1;font-size:14px;font-weight:600;padding:13px 14px;cursor:pointer;border-bottom:3px solid transparent}
 nav.tabs button:hover{color:#fff}
 nav.tabs button.active{color:#fff;border-bottom-color:var(--amber)}
+#topbar{position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+#progresswrap{height:6px;background:var(--navy2)}
+#progressbar{height:100%;width:0;background:var(--amber);transition:width .3s ease}
 main{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
 .panel{display:none;animation:fade .2s ease}
 .panel.active{display:block}
@@ -132,13 +149,13 @@ svg text{font-family:inherit}
   <div class="htitle" id="htitle">Precificadora · iFood &amp; Marketplaces</div>
   <div class="hsub">Custo real, preço por canal e margem de contribuição — pare de faturar muito e lucrar pouco.</div>
 </div></header>
-<nav class="tabs" id="tabs">
+<div id="topbar"><nav class="tabs" id="tabs">
   <button data-t="inicio" class="active">Início</button>
   <button data-t="ficha">1 · Ficha Técnica</button>
   <button data-t="canal">2 · Preço por Canal</button>
   <button data-t="pe">3 · Ponto de Equilíbrio</button>
   <button data-t="detalhe">4 · Detalhamento</button>
-</nav>
+</nav><div id="progresswrap"><div id="progressbar"></div></div></div>
 <main>
   <div class="toolbar">
     <button class="btn amber sm" onclick="loadExample()">↺ Restaurar exemplo</button>
@@ -451,7 +468,9 @@ const TABS=["inicio","ficha","canal","pe","detalhe"];
 const TABLABEL={inicio:"Início",ficha:"Ficha Técnica",canal:"Preço por Canal",pe:"Ponto de Equilíbrio",detalhe:"Detalhamento"};
 function setTab(t){document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("active",x.dataset.t===t));
   document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-  const el=document.getElementById("p-"+t);if(el)el.classList.add("active");window.scrollTo(0,0);}
+  const el=document.getElementById("p-"+t);if(el)el.classList.add("active");
+  var i=TABS.indexOf(t),pb=document.getElementById("progressbar");if(pb&&i>=0)pb.style.width=Math.max(4,(TABS.length>1?i/(TABS.length-1)*100:0))+"%";
+  window.scrollTo(0,0);}
 document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setTab(b.dataset.t);});
 function buildStepNav(){TABS.forEach((t,i)=>{const p=document.getElementById("p-"+t);if(!p||p.querySelector(".stepnav"))return;
   const d=document.createElement("div");d.className="stepnav";let h="<div>";
@@ -460,8 +479,7 @@ function buildStepNav(){TABS.forEach((t,i)=>{const p=document.getElementById("p-
   if(i<TABS.length-1)h+=`<button class="btn amber" onclick="setTab('${TABS[i+1]}')">${TABLABEL[TABS[i+1]]} →</button>`;
   h+="</div>";d.innerHTML=h;p.appendChild(d);});}
 function wrapTables(){document.querySelectorAll("main table").forEach(function(t){if(t.closest(".tscroll"))return;var w=document.createElement("div");w.className="tscroll";t.parentNode.insertBefore(w,t);w.appendChild(t);});}
-function loadProfile(p){if(userTouched&&!confirm("Trocar para o perfil "+(p==="padaria"?"Padaria & Lanchonete":"Comida em apps & marketplaces")+"? Isso substitui os dados atuais pelos exemplos do perfil."))return;
-  state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");userTouched=true;}
+function loadProfile(p){state=defaults(p);save();bindInputs();render();updateProfileLabel();setTab("ficha");}
 function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🥖 Padaria & Lanchonete":"📱 Comida em apps & marketplaces");
   const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Padaria & Lanchonete":"Precificadora · iFood & Marketplaces";}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
@@ -483,7 +501,7 @@ function savePDF(){var panel=document.querySelector('.panel.active')||document.b
     worker.save().catch(function(){window.print();});
   }}
 document.addEventListener("input",onTableInput);
-bindInputs();render();buildStepNav();updateProfileLabel();wrapTables();
+bindInputs();render();buildStepNav();updateProfileLabel();wrapTables();setTab("inicio");
 </script>
 </body>
 </html>
