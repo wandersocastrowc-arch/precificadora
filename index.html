@@ -104,10 +104,9 @@ main{padding:14px 12px 48px}.panel h2{font-size:21px}.card{padding:14px}
 th,td{padding:7px 6px;font-size:13px}
 .w-money{max-width:88px}.w-pct{max-width:60px}.w-qty{max-width:56px}
 .wide{min-width:480px}
-.fcha{min-width:520px}
-.fcha td:first-child input{min-width:96px}
-.fcha .w-qty{max-width:64px}
-.fcha td:nth-child(2) select{max-width:84px}
+.fcha th:nth-child(5),.fcha td:nth-child(5){display:none}
+.fcha .w-qty{max-width:58px}
+.fcha td:nth-child(2) select{max-width:76px}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:17px}.stepnav .btn{flex:1;justify-content:center}
@@ -221,10 +220,10 @@ svg text{font-family:inherit}
       <select id="ficha-modo" style="max-width:260px" onchange="state.ficha.porReceita=(this.value==='receita');render()"><option value="unidade">Por unidade</option><option value="receita">Por receita (rende várias unidades)</option></select></div>
     <div class="field" id="row-rendimento" style="max-width:520px;display:none"><label>Rendimento <span style="color:var(--muted);font-weight:400">— quantas unidades a receita faz</span></label><input class="in" type="number" inputmode="numeric" step="1" min="1" id="ficha-rendimento" oninput="state.ficha.rendimento=+this.value;render()"></div>
     <div class="card"><h3 id="lbl-insumos">Insumos</h3>
-      <table class="wide fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num">Total</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
+      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button></div>
     <div class="card"><h3>Embalagem e descartáveis</h3>
-      <table class="wide fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num">Total</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
+      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button></div>
     <div class="field" style="max-width:480px"><label>Tempo de produção por unidade (hh:mm) <span style="color:var(--muted);font-weight:400">— p/ calcular R$/hora</span></label><input class="in" type="time" id="ficha-tempo" style="max-width:130px" oninput="state.detalhe.tempoH=hhmmToH(this.value);render()"></div>
     <div class="statgrid">
@@ -295,6 +294,8 @@ svg text{font-family:inherit}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 "use strict";
+if("scrollRestoration" in history){history.scrollRestoration="manual";}
+window.addEventListener("load",function(){window.scrollTo(0,0);});
 const KEY="finlab_precificadora_v1";
 const QRDATA="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyCAIAAABnRsZeAAAHqElEQVR4nO3dvY2cNxhGUa+xoXtxBy7eHbgX5+NUgAFCEC/x8ps5J9/51wWDB9TX6/X6DaDz+/QLAN6NrAAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWLfO3/8x19/Vq/jEv/+/c8v/+3Op3HueXceeed5z1m/ozu/hSfa+TScVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2NbKdu3cvnPHuTXkzvrz3KuaWp1OrXvv/NXd+arO/eqcVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2MGV7drU2nXHucXqndvfHXfeKftpa9ep9+u0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLExla27+fconFqdTq1WD33ms89Lz9yWgFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYla2mXMbzak7dM/tWdePPPWa7WgrTitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQGxsZft+i8Zzm9Qd5+52XZu6f3ftzg3u+/1bcFoBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWIHV7ZTu9InuvP21ifeGnvnbbWf9m/BaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiH29Xq/p1/AY5+52tUn9eU98zZ/GaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiG2tbM/ddTrliRvNc5/k1DL4iffv+j3/yGkFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYh9Tz3x1Apzx9SudO3T3u+5v53apE7td899Gk4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BsbGU7tSvdWRZ+2o723CPfuQx+4q3A67+d+hacVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2NjK9pwn7jvPmXpVT1wkT21w1+7cZ685rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAsa/X63Xooc/d0HnnjaTnnFvKPvGR73zetSfekrvDaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiB1c2Z5z7nbPqftK16buhV2bWsquTa1O32/du/OanVaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgNj3uYeeust2zUK3cuf3u/bEb3Btake75rQCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsQuvct2aoV552Zxas9659aZnzd1h67TChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQ21rZTm1h16aWsnd+Guec2++uTa2K16Zuyb3zF+u0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEvqdfQO/T7li988bZqU9yaoM7tdC98xfrtALEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxN5wZfvEe1LvvPd36h2dW/dO3Ti7duf9uzucVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2NjKdmodOLWzPLc6Pfdp7JjaOq+93wb3Tk4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0Ds0rtsp+6UXZu623XqXti1qft379zCWm//yGkFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYiNrWzvXKxO3bB77v3ueOI7euIGd239mu/85TitADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrACxsZXtzt5x6i7bT7utdmqTeu77nVqdPvGT3OG0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEvl6v1y//8dTa9dw68P3e0drUCnNqdbo29f2e+zSmFslOK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitAbOwu27VP23feudC987Oauqt4x53fr7tsgceQFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQ27rL9tPcuTpd21lSTt3su3bnTcZTzzv1t2tOK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitAbOsu2yeuTtfWy8L3W6xOfYM77/fOX93UQndt6lU5rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAsa27bO9cFq69372hT7w1dsfUXnnqLtsp7rIFLiIrQExWgJisADFZAWKyAsRkBYjJChCTFSC2dZftjk/bhu44tw2duiV35zuaWkI/cQvrLlvgTcgKEJMVICYrQExWgJisADFZAWKyAsRkBYiNrWzfz5235O5sQ5+47r3zedembuc9t8F1WgFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYla2man7WXceecrUDaxTW+e1c+9oitMKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChD7er1ev/zHU/8f/Y5zr3nqkXdMrV13vN/meOoW5HOcVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2MGV7RNNLRqndrQ77tyG3vlJTm1hp57XaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiG2tbAH+z2kFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUg9h+nzfnRDgKGWgAAAABJRU5ErkJggg==";
 const brl=n=>isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"—";
