@@ -633,7 +633,7 @@ function buildPrintSheet(){
    "</div><div class=\"col\">"+
    "<h3>Preço base sugerido (venda direta)</h3>"+detrows+
    "<div class=\"big\"><span>Preço base sugerido <span class=\"badge\">margem "+pct(_m)+"</span></span><span class=\"v\">"+brl(precoBase)+"</span></div>"+
-   "<div class=\"kv\"><span>Por hora</span><span>"+(isFinite(rh)?brl(rh)+" /h":"—")+"</span></div>"+
+   "<div class=\"kv\"><span>Margem por hora de produção</span><span>"+(isFinite(rh)?brl(rh)+" /h":"—")+"</span></div>"+
    "<div class=\"kv\"><span>Preço no Pix (-"+(+D.pix||0)+"%)</span><span>"+brl(pix)+"</span></div>"+
    "<div class=\"insights\"><b>Como ler:</b> a <b>margem de contribuição</b> não é lucro &mdash; ela cobre os custos fixos; o lucro começa só depois do ponto de equilíbrio. O gráfico considera <b>só este produto</b>; no geral, o equilíbrio vem do <b>conjunto (mix)</b> dos produtos. <b>Dica:</b> use a coluna <b>Sugerido</b> &mdash; já é o preço arredondado para um valor cheio.</div>"+
    "</div></div>"+
@@ -644,6 +644,7 @@ function buildPrintSheet(){
    "<div class=\"kv\"><span>Custo fixo mensal</span><span>"+brl(cf)+"</span></div>"+
    "<div class=\"kv\"><span>Margem de contribuição / unidade</span><span>"+brl(mc)+"</span></div>"+
    "<div class=\"kv\"><span><b>Unidades p/ empatar</b></span><span class=\"pos\">"+num(be)+"</span></div>"+
+   "<div class=\"kv\"><span>Custo de produção por hora</span><span>"+((+D.tempoH>0)?brl(cv/D.tempoH)+" /h":"—")+"</span></div>"+
    "</div><div class=\"col\"><h3>Quando começa o lucro</h3>"+beChart(cf,mc)+"</div></div>"+
    "<div class=\"promo\"><div style=\"flex:1\"><div class=\"promo-t\">Quer precificar certo e parar de lucrar pouco?</div><div class=\"promo-s\">Consultoria e mentoria de preço, custos e gestão para donos de negócio &mdash; com a FinLab.</div><a id=\"lk-cta\" class=\"cta\" href=\""+wa+"\">Conheça a consultoria</a></div><div class=\"promo-c\"><b>WhatsApp</b> <a id=\"lk-wpp\" href=\""+wa+"\" style=\"color:#EAF6F0\">(22) 99919-1778</a><br><b>E-mail</b> <a id=\"lk-mail\" href=\"mailto:wanderson_castro@outlook.com\" style=\"color:#EAF6F0\">wanderson_castro@outlook.com</a></div><div style=\"text-align:center\"><img id=\"lk-qr\" src=\""+QRDATA+"\" style=\"width:70px;height:70px;border-radius:6px;background:#fff;padding:3px\"><div style=\"font-size:8px;color:#CFEFE0;margin-top:2px\">Portfólio</div></div></div>"+
    "<div class=\"foot\"><span>Gerado pela Precificadora FinLab. &mdash; sua calculadora de pre\u00e7o, custo e margem.</span></div>";
