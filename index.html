@@ -104,6 +104,10 @@ main{padding:14px 12px 48px}.panel h2{font-size:21px}.card{padding:14px}
 th,td{padding:7px 6px;font-size:13px}
 .w-money{max-width:88px}.w-pct{max-width:60px}.w-qty{max-width:56px}
 .wide{min-width:480px}
+.fcha{min-width:520px}
+.fcha td:first-child input{min-width:96px}
+.fcha .w-qty{max-width:64px}
+.fcha td:nth-child(2) select{max-width:84px}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:17px}.stepnav .btn{flex:1;justify-content:center}
@@ -217,10 +221,10 @@ svg text{font-family:inherit}
       <select id="ficha-modo" style="max-width:260px" onchange="state.ficha.porReceita=(this.value==='receita');render()"><option value="unidade">Por unidade</option><option value="receita">Por receita (rende várias unidades)</option></select></div>
     <div class="field" id="row-rendimento" style="max-width:520px;display:none"><label>Rendimento <span style="color:var(--muted);font-weight:400">— quantas unidades a receita faz</span></label><input class="in" type="number" inputmode="numeric" step="1" min="1" id="ficha-rendimento" oninput="state.ficha.rendimento=+this.value;render()"></div>
     <div class="card"><h3 id="lbl-insumos">Insumos</h3>
-      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
+      <table class="wide fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num">Total</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button></div>
     <div class="card"><h3>Embalagem e descartáveis</h3>
-      <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
+      <table class="wide fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num">Total</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button></div>
     <div class="field" style="max-width:480px"><label>Tempo de produção por unidade (hh:mm) <span style="color:var(--muted);font-weight:400">— p/ calcular R$/hora</span></label><input class="in" type="time" id="ficha-tempo" style="max-width:130px" oninput="state.detalhe.tempoH=hhmmToH(this.value);render()"></div>
     <div class="statgrid">
