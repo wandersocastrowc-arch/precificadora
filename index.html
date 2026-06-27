@@ -253,7 +253,7 @@ svg text{font-family:inherit}
     <p class="lead">Cada canal tem um pedágio diferente — logo, um preço diferente. O custo fixo <b>não</b> entra aqui.</p>
     <div class="card">
       <div class="field"><label>Custo variável unitário (da Ficha Técnica)</label><input id="c-custovar" disabled style="max-width:140px;background:#10271D;color:#59F4B2;font-weight:700"></div>
-      <div class="field"><label>Margem de contribuição (desejada) %</label><input class="in" type="number" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
+      <div class="field"><label>Margem de contribuição (desejada) %</label><input class="in" type="number" inputmode="decimal" id="c-margem" step="0.5" oninput="state.canais.margem=+this.value;render()"></div>
           <div id="margem-ref" class="hint" style="margin:-2px 0 10px;line-height:1.7"></div>
     </div>
     <div class="card"><h3>Canais</h3><div class="tscroll">
@@ -289,8 +289,8 @@ svg text{font-family:inherit}
       <div>
         <div class="card">
           <div class="field" id="row-praticado"><label>Preço que você cobra hoje (R$) <span style="color:var(--muted);font-weight:400">— p/ comparar</span></label><input class="in mny" inputmode="numeric" id="det-praticado" placeholder="R$ —" oninput="maskDireto(this)"></div>
-          <div class="field"><label>Imposto sobre a venda (%) <span style="color:var(--muted);font-weight:400">(MEI: deixe 0 e lance o DAS no custo fixo)</span></label><input class="in" type="number" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
-          <div class="field"><label>Desconto no Pix (%)</label><input class="in" type="number" step="0.5" id="det-pix" oninput="state.detalhe.pix=+this.value;renderDetalhe();save()"></div>
+          <div class="field"><label>Imposto sobre a venda (%) <span style="color:var(--muted);font-weight:400">(MEI: deixe 0 e lance o DAS no custo fixo)</span></label><input class="in" type="number" inputmode="decimal" id="c-tributo" step="0.1" oninput="state.canais.tributo=+this.value;render()"></div>
+          <div class="field"><label>Desconto no Pix (%)</label><input class="in" type="number" inputmode="decimal" step="0.5" id="det-pix" oninput="state.detalhe.pix=+this.value;renderDetalhe();save()"></div>
           <p class="hint">O custo variável vem da <b>Ficha Técnica</b> e a margem desejada/taxas vêm da aba <b>Preço por Canal</b>. O imposto e o desconto no Pix você ajusta aqui.</p>
         </div>
       </div>
@@ -373,24 +373,24 @@ function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML
   state.ficha[key].forEach((it,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(it.nome)}" data-k="${key}" data-i="${i}" data-f="nome"></td>
       <td class="ctr"><select style="max-width:104px" data-k="${key}" data-i="${i}" data-f="un">${unitOptions(it.un)}</select></td>
-      <td class="num"><input class="w-qty in" type="number" step="any" value="${it.qtd}" data-k="${key}" data-i="${i}" data-f="qtd"></td>
-      <td class="num"><input class="w-money in" type="number" step="0.01" value="${it.custo}" data-k="${key}" data-i="${i}" data-f="custo"></td>
+      <td class="num"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.qtd}" data-k="${key}" data-i="${i}" data-f="qtd"></td>
+      <td class="num"><input class="w-money in" type="number" inputmode="decimal" step="0.01" value="${it.custo}" data-k="${key}" data-i="${i}" data-f="custo"></td>
       <td class="num">${brl((+it.qtd||0)*(+it.custo||0))}</td>
       <td><button class="iconbtn" title="Remover" onclick="delRow('${key}',${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function canalRows(){const tb=document.getElementById("tb-canais");tb.innerHTML="";
   state.canais.lista.forEach((c,i)=>{const r=canalCalc(c);const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(c.nome)}" data-c="${i}" data-f="nome"></td>
-      <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.comissao}" data-c="${i}" data-f="comissao"></td>
-      <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.pagto}" data-c="${i}" data-f="pagto"></td>
-      <td class="num"><input class="w-pct in" type="number" step="0.1" value="${c.erro}" data-c="${i}" data-f="erro"></td>
+      <td class="num"><input class="w-pct in" type="number" inputmode="decimal" step="0.1" value="${c.comissao}" data-c="${i}" data-f="comissao"></td>
+      <td class="num"><input class="w-pct in" type="number" inputmode="decimal" step="0.1" value="${c.pagto}" data-c="${i}" data-f="pagto"></td>
+      <td class="num"><input class="w-pct in" type="number" inputmode="decimal" step="0.1" value="${c.erro}" data-c="${i}" data-f="erro"></td>
       <td class="num"><input class="w-money in mny" inputmode="numeric" value="${c.praticado>0?(+c.praticado).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):''}" data-c="${i}" data-f="praticado" placeholder="R$ —"></td>
       <td><button class="iconbtn" onclick="delCanal(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function fixoRows(){const tb=document.getElementById("tb-fixo");tb.innerHTML="";
   state.pe.fixo.forEach((f,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(f.nome)}" data-x="${i}" data-f="nome"></td>
-      <td class="num"><input class="w-money in" type="number" step="50" value="${f.valor}" data-x="${i}" data-f="valor"></td>
+      <td class="num"><input class="w-money in" type="number" inputmode="numeric" step="50" value="${f.valor}" data-x="${i}" data-f="valor"></td>
       <td><button class="iconbtn" onclick="delFixo(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function rateioRows(){
@@ -429,7 +429,7 @@ function dedRows(){const tb=document.getElementById("tb-ded");tb.innerHTML="";
   state.detalhe.deducoes.forEach((d,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(d.nome)}" oninput="setDed(${i},'nome',this.value)"></td>
       <td class="ctr"><select onchange="setDed(${i},'tipo',this.value)" style="max-width:72px"><option value="%" ${d.tipo==='%'?'selected':''}>%</option><option value="R$" ${d.tipo==='R$'?'selected':''}>R$</option></select></td>
-      <td class="num"><input class="w-pct in" type="number" step="0.1" value="${d.valor}" oninput="setDed(${i},'valor',this.value)"></td>
+      <td class="num"><input class="w-pct in" type="number" inputmode="decimal" step="0.1" value="${d.valor}" oninput="setDed(${i},'valor',this.value)"></td>
       <td><button class="iconbtn" onclick="delDed(${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function setDed(i,f,v){state.detalhe.deducoes[i][f]=(f==='nome'||f==='tipo')?v:(f==='prod'?v:+v);renderDetalhe();save();}
