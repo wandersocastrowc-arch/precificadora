@@ -106,20 +106,22 @@ th,td{padding:7px 6px;font-size:13px}
 .wide{min-width:480px}
 .fcha thead{display:none}
 .fcha,.fcha tbody{display:block}
-.fcha tr{display:grid;grid-template-columns:1fr 1fr 1fr auto;grid-template-areas:"item item item del" "unid qtd custo total";gap:4px 8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.fcha tr{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:"item item del" "unid pacp pacq" "uso uso tot";gap:6px 8px;align-items:end;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .fcha td{display:block;padding:0;border:0}
 .fcha td input,.fcha td select{width:100%;max-width:none}
 .fcha td:nth-child(1){grid-area:item}
 .fcha td:nth-child(2){grid-area:unid}
-.fcha td:nth-child(3){grid-area:qtd}
-.fcha td:nth-child(4){grid-area:custo}
-.fcha td:nth-child(5){grid-area:total;font-family:Georgia,serif;font-weight:bold;color:var(--amber);font-size:15px;align-self:end;padding-bottom:5px}
-.fcha td:nth-child(6){grid-area:del;text-align:right}
+.fcha td:nth-child(3){grid-area:pacp}
+.fcha td:nth-child(4){grid-area:pacq}
+.fcha td:nth-child(5){grid-area:uso}
+.fcha td:nth-child(6){grid-area:tot;font-family:Georgia,serif;font-weight:bold;color:var(--amber);font-size:16px;padding-bottom:5px}
+.fcha td:nth-child(7){grid-area:del;text-align:right;align-self:center}
 .fcha td:nth-child(2)::before{content:"Unid."}
-.fcha td:nth-child(3)::before{content:"Qtd"}
-.fcha td:nth-child(4)::before{content:"R$/un"}
-.fcha td:nth-child(5)::before{content:"Total"}
-.fcha td:nth-child(2)::before,.fcha td:nth-child(3)::before,.fcha td:nth-child(4)::before,.fcha td:nth-child(5)::before{display:block;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.fcha td:nth-child(3)::before{content:"Preço pacote"}
+.fcha td:nth-child(4)::before{content:"Tam. pacote"}
+.fcha td:nth-child(5)::before{content:"Qtd usada"}
+.fcha td:nth-child(6)::before{content:"Total"}
+.fcha td:nth-child(2)::before,.fcha td:nth-child(3)::before,.fcha td:nth-child(4)::before,.fcha td:nth-child(5)::before,.fcha td:nth-child(6)::before{display:block;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:17px}.stepnav .btn{flex:1;justify-content:center}
@@ -233,10 +235,10 @@ svg text{font-family:inherit}
       <select id="ficha-modo" style="max-width:260px" onchange="state.ficha.porReceita=(this.value==='receita');render()"><option value="unidade">Por unidade</option><option value="receita">Por receita (rende várias unidades)</option></select></div>
     <div class="field" id="row-rendimento" style="max-width:520px;display:none"><label>Rendimento <span style="color:var(--muted);font-weight:400">— quantas unidades a receita faz</span></label><input class="in" type="number" inputmode="numeric" step="1" min="1" id="ficha-rendimento" oninput="state.ficha.rendimento=+this.value;render()"></div>
     <div class="card"><h3 id="lbl-insumos">Insumos</h3>
-      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
+      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unid.</th><th class="num">Preço pacote</th><th class="num">Tam. pacote</th><th class="num">Qtd usada</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button></div>
     <div class="card"><h3>Embalagem e descartáveis</h3>
-      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">R$/un</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
+      <table class="fcha"><thead><tr><th>Item</th><th class="ctr">Unid.</th><th class="num">Preço pacote</th><th class="num">Tam. pacote</th><th class="num">Qtd usada</th><th class="num tot">Total</th><th></th></tr></thead><tbody id="tb-emb"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('embalagem')">+ Adicionar item</button></div>
     <div class="field" style="max-width:480px"><label>Tempo de produção por unidade (hh:mm) <span style="color:var(--muted);font-weight:400">— p/ calcular R$/hora</span></label><input class="in" type="time" id="ficha-tempo" style="max-width:130px" oninput="state.detalhe.tempoH=hhmmToH(this.value);render()"></div>
     <div class="statgrid">
@@ -321,8 +323,8 @@ function hhmmToH(v){if(!v)return 0;var p=(""+v).split(":");return (+p[0]||0)+(+p
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 function baseApps(){return{profile:"apps",
   ficha:{produto:"Bolo no pote",pesoKg:0,porReceita:false,rendimento:1,
-    insumos:[["Massa de bolo","porção",1,1.50],["Recheio (creme / brigadeiro)","g",80,0.03],["Cobertura / ganache","g",40,0.04],["Granulado / decoração","g",10,0.05]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
-    embalagem:[["Pote c/ tampa","un",1,0.90],["Colher descartável","un",1,0.10],["Etiqueta","un",1,0.15],["Sacola delivery","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
+    insumos:[["Massa de bolo","porção",15.00,10,1],["Recheio (creme / brigadeiro)","g",6.00,200,80],["Cobertura / ganache","g",8.00,200,40],["Granulado / decoração","g",5.00,100,10]].map(r=>({nome:r[0],un:r[1],pacotePreco:r[2],pacoteQtd:r[3],qtd:r[4]})),
+    embalagem:[["Pote c/ tampa","un",90.00,100,1],["Colher descartável","un",10.00,100,1],["Etiqueta","un",15.00,100,1],["Sacola delivery","un",20.00,100,1]].map(r=>({nome:r[0],un:r[1],pacotePreco:r[2],pacoteQtd:r[3],qtd:r[4]}))},
   canais:{margem:35,tributo:0,
     lista:[["Balcão / loja física",0,0,1,12],["WhatsApp / venda direta",0,0,2,12],["iFood — Plano Básico",12,3.2,4,15],["iFood — Plano Entrega",23,3.2,4,17],["Mercado Livre",16,0,6,16],["Shopee",20,0,6,16]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
   pe:{contribManual:null,ticket:32,
@@ -333,8 +335,8 @@ function baseApps(){return{profile:"apps",
 };}
 function basePadaria(){return{profile:"padaria",
   ficha:{produto:"Bolo recheado caseiro",pesoKg:0,porReceita:false,rendimento:1,
-    insumos:[["Farinha de trigo","g",500,0.005],["Açúcar","g",400,0.005],["Ovos","un",6,0.70],["Manteiga / margarina","g",200,0.015],["Leite","ml",300,0.005],["Chocolate em pó / cobertura","g",250,0.03],["Recheio (leite condensado / brigadeiro)","lata",1,6.00],["Fermento e essência","porção",1,0.80]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]})),
-    embalagem:[["Caixa para bolo","un",1,2.50],["Forma / tabuleiro descartável","un",1,1.20],["Etiqueta / adesivo","un",1,0.20]].map(r=>({nome:r[0],un:r[1],qtd:r[2],custo:r[3]}))},
+    insumos:[["Farinha de trigo","g",5.00,1000,500],["Açúcar","g",5.00,1000,400],["Ovos","un",8.40,12,6],["Manteiga / margarina","g",7.50,500,200],["Leite","ml",5.00,1000,300],["Chocolate em pó / cobertura","g",6.00,200,250],["Recheio (leite condensado / brigadeiro)","lata",6.00,1,1],["Fermento e essência","porção",0.80,1,1]].map(r=>({nome:r[0],un:r[1],pacotePreco:r[2],pacoteQtd:r[3],qtd:r[4]})),
+    embalagem:[["Caixa para bolo","un",50.00,20,1],["Forma / tabuleiro descartável","un",60.00,50,1],["Etiqueta / adesivo","un",20.00,100,1]].map(r=>({nome:r[0],un:r[1],pacotePreco:r[2],pacoteQtd:r[3],qtd:r[4]}))},
   canais:{margem:45,tributo:0,
     lista:[["Balcão / vitrine",0,0,1,55],["WhatsApp / delivery próprio",0,0,2,60],["Encomenda / festa",0,0,1,65]].map(r=>({nome:r[0],comissao:r[1],pagto:r[2],erro:r[3],praticado:r[4]}))},
   pe:{contribManual:null,ticket:18,
@@ -354,8 +356,10 @@ function clearAll(){if(!confirm("Limpar todos os dados?"))return;
   state.canais.lista.forEach(c=>{c.comissao=0;c.pagto=0;c.erro=0;c.praticado=0;});
   state.pe.fixo.forEach(f=>f.valor=0);state.rateio.preco=0;save();bindInputs();render();}
 function custoVar(){var ins=subIns(),emb=subEmb();if(state.ficha.porReceita){var r=+state.ficha.rendimento||1;if(r<1)r=1;return ins/r+emb;}return ins+emb;}
-function subIns(){return state.ficha.insumos.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);}
-function subEmb(){return state.ficha.embalagem.reduce((t,i)=>t+(+i.qtd||0)*(+i.custo||0),0);}
+function unitCost(it){var pq=+it.pacoteQtd||0;return pq>0?((+it.pacotePreco||0)/pq):(+it.custo||0);}
+function itemTotal(it){return (+it.qtd||0)*unitCost(it);}
+function subIns(){return state.ficha.insumos.reduce((t,i)=>t+itemTotal(i),0);}
+function subEmb(){return state.ficha.embalagem.reduce((t,i)=>t+itemTotal(i),0);}
 function canalCalc(c){const cv=custoVar(),m=state.canais.margem/100,tr=state.canais.tributo/100;
   const com=c.comissao/100,pg=c.pagto/100,er=c.erro/100;
   const carga=com+pg+er+tr+m; const sug=carga<1?cv/(1-carga):NaN;
@@ -373,9 +377,10 @@ function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML
   state.ficha[key].forEach((it,i)=>{const tr=document.createElement("tr");
     tr.innerHTML=`<td><input value="${esc(it.nome)}" data-k="${key}" data-i="${i}" data-f="nome"></td>
       <td class="ctr"><select style="max-width:104px" data-k="${key}" data-i="${i}" data-f="un">${unitOptions(it.un)}</select></td>
+      <td class="num"><input class="w-money in" type="number" inputmode="decimal" step="0.01" value="${it.pacotePreco!=null?it.pacotePreco:''}" data-k="${key}" data-i="${i}" data-f="pacotePreco"></td>
+      <td class="num"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.pacoteQtd!=null?it.pacoteQtd:''}" data-k="${key}" data-i="${i}" data-f="pacoteQtd"></td>
       <td class="num"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.qtd}" data-k="${key}" data-i="${i}" data-f="qtd"></td>
-      <td class="num"><input class="w-money in" type="number" inputmode="decimal" step="0.01" value="${it.custo}" data-k="${key}" data-i="${i}" data-f="custo"></td>
-      <td class="num">${brl((+it.qtd||0)*(+it.custo||0))}</td>
+      <td class="num tot">${brl(itemTotal(it))}</td>
       <td><button class="iconbtn" title="Remover" onclick="delRow('${key}',${i})">✕</button></td>`;
     tb.appendChild(tr);});}
 function canalRows(){const tb=document.getElementById("tb-canais");tb.innerHTML="";
@@ -501,7 +506,7 @@ function refreshDerived(){
   syncReceitaUI();
   document.getElementById("c-custovar").value=brl(custoVar());
   [["insumos","tb-insumos"],["embalagem","tb-emb"]].forEach(([k,id])=>{const rows=document.getElementById(id).children;
-    state.ficha[k].forEach((it,i)=>{if(rows[i])rows[i].children[4].textContent=brl((+it.qtd||0)*(+it.custo||0));});});
+    state.ficha[k].forEach((it,i)=>{if(rows[i])rows[i].children[5].textContent=brl(itemTotal(it));});});
 
   document.getElementById("f-total").textContent=brl(fixoTotal());
   document.getElementById("pe-contrib").value=brl(contribAuto());
@@ -512,7 +517,7 @@ function refreshDerived(){
   document.getElementById("pe-fat").textContent=brl(fat);
   renderDetalhe();
 }
-function addRow(key){state.ficha[key].push({nome:"",un:"un",qtd:1,custo:0});render();}
+function addRow(key){state.ficha[key].push({nome:"",un:"un",pacotePreco:0,pacoteQtd:1,qtd:1});render();}
 function delRow(key,i){state.ficha[key].splice(i,1);render();}
 function addCanal(){state.canais.lista.push({nome:"Novo canal",comissao:0,pagto:0,erro:0,praticado:0});render();}
 function delCanal(i){state.canais.lista.splice(i,1);render();}
@@ -583,7 +588,7 @@ function beChart(cf,perUnit){
   s+="<text x=\""+pl+"\" y=\""+(H-8)+"\" font-size=\"8\" fill=\"#5C7468\">0 un.</text><text x=\""+(W-pr)+"\" y=\""+(H-8)+"\" font-size=\"8\" fill=\"#5C7468\" text-anchor=\"end\">"+xmax+" un.</text>";
   return s+"</svg>";
 }
-function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(+it.custo||0)+"</td><td class=\"n\">"+brl((+it.qtd||0)*(+it.custo||0))+"</td></tr>";}).join("");}
+function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(unitCost(it))+"</td><td class=\"n\">"+brl(itemTotal(it))+"</td></tr>";}).join("");}
 function buildPrintSheet(){
   var D=state.detalhe||{deducoes:[]}, cv=custoVar(),_pr=!!state.ficha.porReceita,_rend=+state.ficha.rendimento||1;if(_rend<1)_rend=1;
   var _m=(+state.canais.margem||0)/100,_trb=(+state.canais.tributo||0)/100,_dn=1-_m-_trb,precoBase=_dn>0?cv/_dn:NaN,contribBase=isFinite(precoBase)?precoBase*_m:NaN;
