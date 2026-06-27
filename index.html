@@ -196,9 +196,6 @@ svg text{font-family:inherit}
     <button class="btn amber sm" onclick="savePDF()">Salvar PDF</button>
   </div>
   <section class="panel active" id="p-inicio">
-    <div class="kicker">Comece aqui</div>
-    <h2 class="serif">Como esta ferramenta funciona</h2>
-    <p class="lead">Quatro passos. Tudo que você digitar fica salvo no seu navegador automaticamente. Nada é enviado para servidor algum.</p>
       <div class="card" style="border:2px solid var(--amber)"><h3>Seu tipo de negócio</h3><p style="margin:0 0 12px" class="muted">Escolha o perfil — ele ajusta os canais e os exemplos (você pode editar tudo depois).</p><div class="statgrid"><div class="bizpick" onclick="loadProfile('padaria')"><b>🍽️ Alimentação · venda direta</b><div class="muted" style="font-size:13px;margin-top:4px">Bolos, salgados, marmitas — balcão, WhatsApp e encomenda. Sem marketplace.</div></div><div class="bizpick" onclick="loadProfile('apps')"><b>📱 Apps &amp; marketplaces</b><div class="muted" style="font-size:13px;margin-top:4px">iFood (Básico/Entrega), Mercado Livre, Shopee.</div></div></div><p class="hint" id="profile-now"></p></div>
     <div>
       <div class="card"><h3>O caminho</h3>
@@ -228,6 +225,7 @@ svg text{font-family:inherit}
     <div class="statgrid">
       <div class="stat"><div class="v amber" id="s-insumos">R$ 0,00</div><div class="k">Subtotal insumos</div></div>
       <div class="stat"><div class="v amber" id="s-emb">R$ 0,00</div><div class="k">Subtotal embalagem</div></div>
+      <div class="stat" id="stat-receita" style="display:none"><div class="v amber" id="s-custoreceita">R$ 0,00</div><div class="k">Custo por receita</div></div>
       <div class="stat" style="background:var(--amber)"><div class="v" style="color:var(--deep)" id="s-custovar">R$ 0,00</div><div class="k" style="color:#06351F">Custo variável unitário</div></div>
     </div>
     <p class="hint" id="ficha-receita-hint" style="margin-top:8px;display:none"></p>
@@ -442,6 +440,10 @@ function renderDetalhe(){
 }
 function syncReceitaUI(){
   var pr=!!state.ficha.porReceita;
+  var _r=+state.ficha.rendimento||1;if(_r<1)_r=1;
+  var sr=document.getElementById("stat-receita"),src=document.getElementById("s-custoreceita");
+  if(sr)sr.style.display=pr?"":"none";
+  if(src&&pr)src.textContent=brl(subIns()+subEmb()*_r);
   var rr=document.getElementById("row-rendimento");if(rr)rr.style.display=pr?"":"none";
   var lbl=document.getElementById("lbl-insumos");if(lbl)lbl.textContent=pr?"Insumos da receita":"Insumos";
   var fm=document.getElementById("ficha-modo");if(fm)fm.value=pr?"receita":"unidade";
