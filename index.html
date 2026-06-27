@@ -564,7 +564,6 @@ function setTab(t){const tabs=curTabs();if(tabs.indexOf(t)<0)t=tabs[0];
   document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
   const el=document.getElementById("p-"+t);if(el)el.classList.add("active");
   var i=tabs.indexOf(t),pb=document.getElementById("progressbar");if(pb&&i>=0)pb.style.width=Math.max(4,(tabs.length>1?i/(tabs.length-1)*100:0))+"%";
-  var _pb=document.getElementById("btn-pdf");if(_pb)_pb.style.display=(t==="detalhe")?"":"none";
   window.scrollTo(0,0);}
 document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setTab(b.dataset.t);});
 function buildStepNav(){const tabs=curTabs();document.querySelectorAll(".stepnav").forEach(n=>n.remove());
