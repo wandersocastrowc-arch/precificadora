@@ -104,9 +104,22 @@ main{padding:14px 12px 48px}.panel h2{font-size:21px}.card{padding:14px}
 th,td{padding:7px 6px;font-size:13px}
 .w-money{max-width:88px}.w-pct{max-width:60px}.w-qty{max-width:56px}
 .wide{min-width:480px}
-.fcha th:nth-child(5),.fcha td:nth-child(5){display:none}
-.fcha .w-qty{max-width:58px}
-.fcha td:nth-child(2) select{max-width:76px}
+.fcha thead{display:none}
+.fcha,.fcha tbody{display:block}
+.fcha tr{display:grid;grid-template-columns:1fr 1fr 1fr auto;grid-template-areas:"item item item del" "unid qtd custo total";gap:4px 8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.fcha td{display:block;padding:0;border:0}
+.fcha td input,.fcha td select{width:100%;max-width:none}
+.fcha td:nth-child(1){grid-area:item}
+.fcha td:nth-child(2){grid-area:unid}
+.fcha td:nth-child(3){grid-area:qtd}
+.fcha td:nth-child(4){grid-area:custo}
+.fcha td:nth-child(5){grid-area:total;font-family:Georgia,serif;font-weight:bold;color:var(--amber);font-size:15px;align-self:end;padding-bottom:5px}
+.fcha td:nth-child(6){grid-area:del;text-align:right}
+.fcha td:nth-child(2)::before{content:"Unid."}
+.fcha td:nth-child(3)::before{content:"Qtd"}
+.fcha td:nth-child(4)::before{content:"R$/un"}
+.fcha td:nth-child(5)::before{content:"Total"}
+.fcha td:nth-child(2)::before,.fcha td:nth-child(3)::before,.fcha td:nth-child(4)::before,.fcha td:nth-child(5)::before{display:block;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:17px}.stepnav .btn{flex:1;justify-content:center}
