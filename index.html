@@ -217,7 +217,7 @@ svg text{font-family:inherit}
       <input id="produto" style="max-width:340px" oninput="state.ficha.produto=this.value;save()"></div>
     <div class="field" style="max-width:520px"><label>Como você monta os custos?</label>
       <select id="ficha-modo" style="max-width:260px" onchange="state.ficha.porReceita=(this.value==='receita');render()"><option value="unidade">Por unidade</option><option value="receita">Por receita (rende várias unidades)</option></select></div>
-    <div class="field" id="row-rendimento" style="max-width:520px;display:none"><label>Rendimento <span style="color:var(--muted);font-weight:400">— quantas unidades a receita faz</span></label><input class="in" type="number" step="1" min="1" id="ficha-rendimento" oninput="state.ficha.rendimento=+this.value;render()"></div>
+    <div class="field" id="row-rendimento" style="max-width:520px;display:none"><label>Rendimento <span style="color:var(--muted);font-weight:400">— quantas unidades a receita faz</span></label><input class="in" type="number" inputmode="numeric" step="1" min="1" id="ficha-rendimento" oninput="state.ficha.rendimento=+this.value;render()"></div>
     <div class="card"><h3 id="lbl-insumos">Insumos</h3>
       <table><thead><tr><th>Item</th><th class="ctr">Unidade</th><th class="num">Qtd</th><th class="num">Custo unit. (R$)</th><th class="num">Custo no produto</th><th></th></tr></thead><tbody id="tb-insumos"></tbody></table>
       <button class="btn ghost sm" style="margin-top:10px" onclick="addRow('insumos')">+ Adicionar insumo</button></div>
@@ -564,7 +564,7 @@ function beChart(cf,perUnit){
 }
 function psList(arr){return arr.map(function(it){return "<tr><td>"+esc(it.nome||"")+"</td><td class=\"n\">"+(+it.qtd||0)+" "+esc(it.un||"")+"</td><td class=\"n\">"+brl(+it.custo||0)+"</td><td class=\"n\">"+brl((+it.qtd||0)*(+it.custo||0))+"</td></tr>";}).join("");}
 function buildPrintSheet(){
-  var D=state.detalhe||{deducoes:[]}, cv=custoVar();
+  var D=state.detalhe||{deducoes:[]}, cv=custoVar(),_pr=!!state.ficha.porReceita,_rend=+state.ficha.rendimento||1;if(_rend<1)_rend=1;
   var _m=(+state.canais.margem||0)/100,_trb=(+state.canais.tributo||0)/100,_dn=1-_m-_trb,precoBase=_dn>0?cv/_dn:NaN,contribBase=isFinite(precoBase)?precoBase*_m:NaN;
   var tributoR=isFinite(precoBase)?precoBase*_trb:NaN,mc=contribBase;
   var rh=(+D.tempoH>0&&isFinite(contribBase))?contribBase/D.tempoH:NaN,pix=isFinite(precoBase)?precoBase*(1-(+D.pix||0)/100):NaN;
@@ -575,8 +575,9 @@ function buildPrintSheet(){
   var html="<div class=\"ph\"><div class=\"brand\">FinLab<span class=\"d\">.</span></div><div class=\"sub\"><b>Relatório de Precificação</b><br>"+(state.profile==="padaria"?"Padaria &amp; Lanchonete":"iFood &amp; Marketplaces")+"<br>"+new Date().toLocaleDateString("pt-BR")+"</div></div>"+
    "<h1>"+esc(state.ficha.produto||"Produto")+"</h1>"+
    "<div class=\"cols\"><div class=\"col\">"+
-   "<h3>Ficha Técnica &mdash; custo variável</h3><table><thead><tr><th>Item</th><th class=\"n\">Qtd</th><th class=\"n\">R$/un</th><th class=\"n\">Total</th></tr></thead><tbody>"+psList(state.ficha.insumos)+psList(state.ficha.embalagem)+"</tbody></table>"+
-   "<div class=\"big\"><span>Custo variável unitário</span><span class=\"v\">"+brl(cv)+"</span></div>"+((+state.ficha.pesoKg)>0?"<div class=\"kv\"><span>Custo por kg</span><span>"+brl(cv/state.ficha.pesoKg)+"</span></div>":"")+
+   "<h3>Ficha Técnica &mdash; custo variável"+(_pr?" &middot; por receita":"")+"</h3><table><thead><tr><th>Item</th><th class=\"n\">Qtd</th><th class=\"n\">R$/un</th><th class=\"n\">Total</th></tr></thead><tbody>"+psList(state.ficha.insumos)+psList(state.ficha.embalagem)+"</tbody></table>"+
+   (_pr?"<div class=\"kv\"><span>Insumos da receita inteira</span><span>"+brl(subIns())+"</span></div><div class=\"kv\"><span>Rendimento</span><span>"+_rend+" un.</span></div><div class=\"kv\"><span>Insumos por unidade</span><span>"+brl(subIns()/_rend)+"</span></div><div class=\"kv\"><span>Embalagem por unidade</span><span>"+brl(subEmb())+"</span></div>":"")+
+   "<div class=\"big\"><span>Custo variável unitário</span><span class=\"v\">"+brl(cv)+"</span></div>"+
    "</div><div class=\"col\">"+
    "<h3>Preço base sugerido (venda direta)</h3>"+detrows+
    "<div class=\"big\"><span>Preço base sugerido <span class=\"badge\">margem "+pct(_m)+"</span></span><span class=\"v\">"+brl(precoBase)+"</span></div>"+
