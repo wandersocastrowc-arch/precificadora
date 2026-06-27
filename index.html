@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>Precificadora · iFood &amp; Marketplaces — FinLab.</title>
+<title>Precificadora · iFood e Marketplaces — FinLab.</title>
 <meta name="description" content="Precificadora por canal para iFood, marketplaces e delivery. Calcule custo, preço e margem de contribuição. Por FinLab.">
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -170,7 +170,7 @@ svg text{font-family:inherit}
 .ps .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #0E9F6E;padding-bottom:7px;margin-bottom:10px}
 .ps .brand{font-family:Georgia,serif;font-weight:bold;font-size:24px;color:#0B3D2E}
 .ps .brand .d{color:#0E9F6E}
-.ps .ph .sub{font-size:12.5px;color:#5C7468;text-align:right;line-height:1.4;max-width:340px}
+.ps .ph .sub{font-size:12px;color:#5C7468;text-align:right;line-height:1.4;max-width:460px}
 .ps h1{font-family:Georgia,serif;font-size:27px;margin:0 0 9px;color:#0B3D2E}
 .ps .cols{display:flex;gap:18px}
 .ps .col{flex:1}
@@ -200,7 +200,7 @@ svg text{font-family:inherit}
 <body>
 <header><div class="wrap">
   <div class="brand">FinLab<span class="dot">.</span></div>
-  <div class="htitle" id="htitle">Precificadora · iFood &amp; Marketplaces</div>
+  <div class="htitle" id="htitle">Precificadora · iFood e Marketplaces</div>
   <div class="hsub">Custo real, preço por canal e margem de contribuição — pare de faturar muito e lucrar pouco.</div>
 </div></header>
 <div id="topbar"><nav class="tabs" id="tabs">
@@ -220,7 +220,7 @@ svg text{font-family:inherit}
     <button id="btn-pdf" class="btn amber sm" onclick="savePDF()">Salvar PDF</button>
   </div>
   <section class="panel active" id="p-inicio">
-      <div class="card" style="border:2px solid var(--amber)"><h3>Seu tipo de negócio</h3><p style="margin:0 0 12px" class="muted">Escolha o perfil — ele ajusta os canais e os exemplos (você pode editar tudo depois).</p><div class="statgrid"><div class="bizpick" onclick="loadProfile('padaria')"><b>🍽️ Alimentação · venda direta</b><div class="muted" style="font-size:13px;margin-top:4px">Bolos, salgados, marmitas — balcão, WhatsApp e encomenda. Sem marketplace.</div></div><div class="bizpick" onclick="loadProfile('apps')"><b>📱 Apps &amp; marketplaces</b><div class="muted" style="font-size:13px;margin-top:4px">iFood (Básico/Entrega), Mercado Livre, Shopee.</div></div></div><p class="hint" id="profile-now"></p></div>
+      <div class="card" style="border:2px solid var(--amber)"><h3>Seu tipo de negócio</h3><p style="margin:0 0 12px" class="muted">Escolha o perfil — ele ajusta os canais e os exemplos (você pode editar tudo depois).</p><div class="statgrid"><div class="bizpick" onclick="loadProfile('padaria')"><b>🍽️ Alimentação · venda direta</b><div class="muted" style="font-size:13px;margin-top:4px">Bolos, salgados, marmitas — balcão, WhatsApp e encomenda. Sem marketplace.</div></div><div class="bizpick" onclick="loadProfile('apps')"><b>📱 Apps e marketplaces</b><div class="muted" style="font-size:13px;margin-top:4px">iFood (Básico/Entrega), Mercado Livre, Shopee.</div></div></div><p class="hint" id="profile-now"></p></div>
     <div>
       <div class="card"><h3>O caminho</h3>
         <p><b>1 · Ficha Técnica</b> — monte o custo <i>variável</i> de uma unidade (insumos + embalagem).</p>
@@ -270,7 +270,7 @@ svg text{font-family:inherit}
   </section>
   <section class="panel" id="p-pe">
     <div class="kicker">Passo 3</div>
-    <h2 class="serif">Custo Fixo &amp; Ponto de Equilíbrio</h2>
+    <h2 class="serif">Custo Fixo e Ponto de Equilíbrio</h2>
     <p class="lead">Aqui é onde o custo fixo vive: uma meta mensal coberta pela soma das contribuições — não um valor por produto.</p>
     <div class="row2">
       <div class="card"><h3>Custo fixo mensal</h3>
@@ -580,8 +580,8 @@ function applyProfileTabs(){var direct=state.profile==="padaria";var cb=document
 function maskDireto(el){var d=el.value.replace(/\D/g,"");var n=d?parseInt(d,10)/100:0;state.detalhe.praticadoDireto=n;el.value=n>0?n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"";renderDetalhe();save();}
 function wrapTables(){document.querySelectorAll("main table").forEach(function(t){if(t.closest(".tscroll"))return;var w=document.createElement("div");w.className="tscroll";t.parentNode.insertBefore(w,t);w.appendChild(t);});}
 function loadProfile(p){state=defaults(p);save();bindInputs();render();updateProfileLabel();applyProfileTabs();setTab("ficha");}
-function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🍽️ Alimentação · venda direta":"📱 Apps & marketplaces");
-  const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Alimentação & Venda Direta":"Precificadora · iFood & Marketplaces";}
+function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🍽️ Alimentação · venda direta":"📱 Apps e marketplaces");
+  const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Alimentação e Venda Direta":"Precificadora · iFood e Marketplaces";}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
 function importJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{state=JSON.parse(r.result);save();bindInputs();render();alert("Dados importados.");}catch(e){alert("Arquivo inválido.");}};r.readAsText(f);ev.target.value="";}
