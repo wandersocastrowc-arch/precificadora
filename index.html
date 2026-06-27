@@ -59,6 +59,7 @@ table{width:100%;border-collapse:collapse}
 th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
 td.num,th.num{text-align:right}
+.fcha thead th{text-align:center}
 td.ctr,th.ctr{text-align:center}
 tbody tr:last-child td{border-bottom:0}
 input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px 8px;width:100%;background:#0E1712}
@@ -107,7 +108,7 @@ th,td{padding:7px 6px;font-size:13px}
 .fcha thead{display:none}
 .fcha,.fcha tbody{display:block}
 .fcha tr{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:"item item del" "unid pacp pacq" "uso uso tot";gap:6px 8px;align-items:end;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
-.fcha td{display:block;padding:0;border:0}
+.fcha td{display:block;padding:0;border:0;text-align:left}
 .fcha td input,.fcha td select{width:100%;max-width:none}
 .fcha td:nth-child(1){grid-area:item}
 .fcha td:nth-child(2){grid-area:unid}
@@ -121,7 +122,7 @@ th,td{padding:7px 6px;font-size:13px}
 .fcha td:nth-child(4)::before{content:"Tam. pacote"}
 .fcha td:nth-child(5)::before{content:"Qtd usada"}
 .fcha td:nth-child(6)::before{content:"Total"}
-.fcha td:nth-child(2)::before,.fcha td:nth-child(3)::before,.fcha td:nth-child(4)::before,.fcha td:nth-child(5)::before,.fcha td:nth-child(6)::before{display:block;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.fcha td:nth-child(2)::before,.fcha td:nth-child(3)::before,.fcha td:nth-child(4)::before,.fcha td:nth-child(5)::before,.fcha td:nth-child(6)::before{display:block;font-size:9px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;text-align:center}
 .field{flex-wrap:wrap}.field label{flex:1 1 100%;margin-bottom:2px}.field input{max-width:100%}
 .det-card{padding:16px}.det-price{font-size:26px}.det-lucro-v{font-size:28px}
 .stat .v{font-size:17px}.stepnav .btn{flex:1;justify-content:center}
