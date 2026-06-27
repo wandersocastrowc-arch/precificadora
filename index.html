@@ -343,7 +343,7 @@ function basePadaria(){return{profile:"padaria",
   pe:{contribManual:null,ticket:18,
     fixo:[["Aluguel",1500],["Energia",450],["Água e gás",250],["Salário (1 funcionário)",1600],["Pró-labore (você)",2000],["Outros",300]].map(r=>({nome:r[0],valor:r[1]}))},
   rateio:{markup:60,preco:9,vol:[2500,1500,800]},
-  detalhe:{preco:12,tempoH:2,pix:0,praticadoDireto:60,porPeso:false,precoKg:45,pesoKg:1.5,
+  detalhe:{preco:12,tempoH:2,pix:5,praticadoDireto:60,porPeso:false,precoKg:45,pesoKg:1.5,
     deducoes:[["Imposto sobre a venda","%",6,false],["Taxa cartão crédito","%",3,false],["Taxa cartão débito","%",1.5,false]].map(r=>({nome:r[0],tipo:r[1],valor:r[2],prod:r[3]}))}
 };}
 function defaults(p){return p==="apps"?baseApps():basePadaria();}
@@ -596,7 +596,7 @@ function buildPrintSheet(){
   var tributoR=isFinite(precoBase)?precoBase*_trb:NaN,mc=contribBase;
   var rh=(+D.tempoH>0&&isFinite(contribBase))?contribBase/D.tempoH:NaN,pix=isFinite(precoBase)?precoBase*(1-(+D.pix||0)/100):NaN;
   var detrows="<div class=\"kv\"><span>Custo variável (Ficha Técnica)</span><span class=\"neg\">"+brl(cv)+"</span></div>"+(_trb>=0?"<div class=\"kv\"><span>Imposto sobre a venda ("+pct(_trb)+")</span><span class=\"neg\">"+brl(tributoR)+"</span></div>":"")+"<div class=\"kv\"><span>Margem de contribuição projetada ("+pct(_m)+")</span><span class=\"pos\">"+brl(contribBase)+"</span></div>";
-  var canrows=state.canais.lista.map(function(c){var r=canalCalc(c);return "<tr><td>"+esc(c.nome)+"</td><td class=\"n\" style=\"color:#5C7468\">"+brl(r.sug)+"</td><td class=\"n\" style=\"color:#0B6B4F;font-weight:bold\">"+brl(arred(r.sug))+"</td><td class=\"n\">"+(r.prat>0?brl(r.prat):"&mdash;")+"</td><td class=\"n\">"+(isFinite(r.contrib)?brl(r.contrib):"&mdash;")+"</td><td class=\"n\">"+(isFinite(r.contribPct)?pct(r.contribPct):"&mdash;")+"</td></tr>";}).join("");
+  var canrows=state.canais.lista.map(function(c){var r=canalCalc(c);return "<tr><td>"+esc(c.nome)+"</td><td class=\"n\" style=\"color:#5C7468\">"+(r.prat>0?brl(r.prat):"&mdash;")+"</td><td class=\"n\" style=\"color:#0B6B4F\">"+brl(r.sug)+"</td><td class=\"n\" style=\"color:#0B6B4F;font-weight:bold\">"+brl(arred(r.sug))+"</td><td class=\"n\" style=\"color:#0B6B4F;font-weight:bold\">"+(isFinite(r.contrib)?brl(r.contrib):"&mdash;")+"</td><td class=\"n\" style=\"color:#0B6B4F;font-weight:bold\">"+(isFinite(r.contribPct)?pct(r.contribPct):"&mdash;")+"</td></tr>";}).join("");
   var cf=fixoTotal(),be=mc>0?cf/mc:NaN;
   var wa="https://wa.me/5522999191778?text="+encodeURIComponent("Gostaria de conhecer sua consultoria");
   var html="<div class=\"ph\"><div class=\"brand\">FinLab<span class=\"d\">.</span></div><div class=\"sub\"><b>Relatório de Precificação</b><br>"+(state.profile==="padaria"?"Padaria &amp; Lanchonete":"iFood &amp; Marketplaces")+"<br>"+new Date().toLocaleDateString("pt-BR")+"</div></div>"+
@@ -612,7 +612,7 @@ function buildPrintSheet(){
    "<div class=\"kv\"><span>Preço no Pix (-"+(+D.pix||0)+"%)</span><span>"+brl(pix)+"</span></div>"+
    "</div></div>"+
    "<h3 class=\"sec\">Preço por canal &mdash; cálculo, sugerido e praticado</h3>"+
-   "<table><thead><tr><th>Canal</th><th class=\"n\">Cálculo</th><th class=\"n\">Sugerido</th><th class=\"n\">Praticado hoje</th><th class=\"n\">Margem R$</th><th class=\"n\">Margem %</th></tr></thead><tbody>"+canrows+"</tbody></table>"+
+   "<table><thead><tr><th>Canal</th><th class=\"n\">Praticado hoje</th><th class=\"n\">Cálculo</th><th class=\"n\">Sugerido</th><th class=\"n\">Margem R$</th><th class=\"n\">Margem %</th></tr></thead><tbody>"+canrows+"</tbody></table>"+
    "<div class=\"cols\"><div class=\"col\">"+
    "<h3>Ponto de Equilíbrio</h3>"+
    "<div class=\"kv\"><span>Custo fixo mensal</span><span>"+brl(cf)+"</span></div>"+
