@@ -66,6 +66,7 @@ input,select{font:inherit;color:var(--ink);border:1px solid var(--line);border-r
 .pacqwrap{display:flex;gap:4px;align-items:center}.pacqwrap input{flex:1;min-width:0}.usel{flex:0 0 auto;width:auto;max-width:72px;padding:7px 4px}
 input:focus,select:focus{outline:2px solid var(--amber);border-color:var(--amber)}
 input.in{background:var(--amber-bg);border-color:#2f6f53}
+body.examplemode #produto,body.examplemode .panel .in,body.examplemode .panel select{font-style:italic}
 input[type=number]{text-align:right}
 input.in,input.mny{text-align:left}
 input,select,textarea{-webkit-user-select:text;user-select:text}
@@ -353,9 +354,10 @@ function basePadaria(){return{profile:"padaria",
 function defaults(p){return p==="apps"?baseApps():basePadaria();}
 let state=load();
 let userTouched=!!localStorage.getItem(KEY);
+function setExampleMode(on){document.body.classList.toggle("examplemode",!!on);}
 function load(){const d=defaults();try{const s=localStorage.getItem(KEY);if(!s)return d;return Object.assign(d,JSON.parse(s));}catch(e){return d;}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
-function loadExample(){const p=(state&&state.profile)||"apps";state=defaults(p);save();bindInputs();render();updateProfileLabel();}
+function loadExample(){const p=(state&&state.profile)||"apps";state=defaults(p);save();bindInputs();render();updateProfileLabel();setExampleMode(true);}
 function clearAll(){if(!confirm("Limpar todos os dados?"))return;
   state=defaults();state.ficha.produto="";state.ficha.insumos=[];state.ficha.embalagem=[];
   state.canais.lista.forEach(c=>{c.comissao=0;c.pagto=0;c.erro=0;c.praticado=0;});
@@ -519,7 +521,7 @@ function render(){
   document.getElementById("pe-fat").textContent=brl(fat);
   renderDetalhe();updateMargemRef();save();
 }
-function onTableInput(e){userTouched=true;const t=e.target;if(t.tagName!=="INPUT"&&t.tagName!=="SELECT")return;
+function onTableInput(e){userTouched=true;setExampleMode(false);const t=e.target;if(t.tagName!=="INPUT"&&t.tagName!=="SELECT")return;
   if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un"||f==="pacoteUn")?t.value:+t.value;if(f==="un"){if(!unitsCompatible(it.pacoteUn||it.un,it.un))it.pacoteUn=it.un;save();render();return;}}
   else if(t.dataset.c!=null){const c=state.canais.lista[+t.dataset.c];const f=t.dataset.f;
     if(f==="praticado"){var dg=t.value.replace(/\D/g,"");var nv=dg?parseInt(dg,10)/100:0;c.praticado=nv;t.value=nv>0?nv.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"";}
@@ -581,7 +583,7 @@ function buildStepNav(){const tabs=curTabs();document.querySelectorAll(".stepnav
 function applyProfileTabs(){var direct=state.profile==="padaria";var cb=document.getElementById("tab-canal");if(cb)cb.style.display=direct?"none":"";var rp=document.getElementById("row-praticado");if(rp)rp.style.display=direct?"":"none";buildStepNav();}
 function maskDireto(el){var d=el.value.replace(/\D/g,"");var n=d?parseInt(d,10)/100:0;state.detalhe.praticadoDireto=n;el.value=n>0?n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"";renderDetalhe();save();}
 function wrapTables(){document.querySelectorAll("main table").forEach(function(t){if(t.closest(".tscroll"))return;var w=document.createElement("div");w.className="tscroll";t.parentNode.insertBefore(w,t);w.appendChild(t);});}
-function loadProfile(p){state=defaults(p);save();bindInputs();render();updateProfileLabel();applyProfileTabs();setTab("ficha");}
+function loadProfile(p){state=defaults(p);save();bindInputs();render();updateProfileLabel();applyProfileTabs();setExampleMode(true);setTab("ficha");}
 function updateProfileLabel(){const el=document.getElementById("profile-now");if(el)el.textContent="Perfil atual: "+(state.profile==="padaria"?"🍽️ Alimentação · venda direta":"📱 Apps e marketplaces");
   const h=document.getElementById("htitle");if(h)h.textContent=state.profile==="padaria"?"Precificadora · Alimentação e Venda Direta":"Precificadora · iFood e Marketplaces";}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="precificadora-finlab.json";a.click();}
@@ -674,7 +676,7 @@ function savePDF(){
 }
 document.addEventListener("input",onTableInput);
 document.addEventListener("change",onTableInput);
-bindInputs();render();updateProfileLabel();wrapTables();applyProfileTabs();setTab("inicio");
+bindInputs();render();updateProfileLabel();wrapTables();applyProfileTabs();setExampleMode(!userTouched);setTab("inicio");
 ["gesturestart","gesturechange","gestureend"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();},{passive:false});});
 document.addEventListener("touchmove",function(e){if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
 </script>
