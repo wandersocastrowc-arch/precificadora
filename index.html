@@ -322,7 +322,7 @@ const brl=n=>isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BR
 const pct=n=>isFinite(n)?(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%":"—";
 const num=n=>isFinite(n)?Math.round(n).toLocaleString("pt-BR"):"—";
 const UNITS=["un","g","kg","mg","ml","L","dúzia","porção","lata","pacote"];
-function unitOptions(cur){var u=UNITS.slice();if(cur&&u.indexOf(cur)<0)u.unshift(cur);return u.map(function(x){return "<option"+(x===cur?" selected":"")+">"+esc(x)+"</option>";}).join("");}
+function unitOptions(cur,allowed){var u=(allowed||UNITS).slice();if(cur&&u.indexOf(cur)<0)u.unshift(cur);return u.map(function(x){return "<option"+(x===cur?" selected":"")+">"+esc(x)+"</option>";}).join("");}
 function hToHHMM(h){h=+h||0;var H=Math.floor(h),M=Math.round((h-H)*60);if(M===60){H++;M=0;}return String(H).padStart(2,"0")+":"+String(M).padStart(2,"0");}
 function hhmmToH(v){if(!v)return 0;var p=(""+v).split(":");return (+p[0]||0)+(+p[1]||0)/60;}
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -363,6 +363,8 @@ function clearAll(){if(!confirm("Limpar todos os dados?"))return;
 function custoVar(){var ins=subIns(),emb=subEmb();if(state.ficha.porReceita){var r=+state.ficha.rendimento||1;if(r<1)r=1;return ins/r+emb;}return ins+emb;}
 const UFAM={mg:["m",0.001],g:["m",1],kg:["m",1000],ml:["v",1],L:["v",1000],"un":["c",1],"dúzia":["c",12]};
 function conv(q,from,to){q=+q||0;if(from===to)return q;var a=UFAM[from],b=UFAM[to];if(a&&b&&a[0]===b[0])return q*a[1]/b[1];return q;}
+function unitsCompatible(a,b){if(a===b)return true;var x=UFAM[a],y=UFAM[b];return !!(x&&y&&x[0]===y[0]);}
+function compatUnits(un){var a=UFAM[un];if(a){return UNITS.filter(function(u){return UFAM[u]&&UFAM[u][0]===a[0];});}return [un];}
 function unitCost(it){var pun=it.pacoteUn||it.un,pq=conv(+it.pacoteQtd||0,pun,it.un);return pq>0?((+it.pacotePreco||0)/pq):(+it.custo||0);}
 function itemTotal(it){return (+it.qtd||0)*unitCost(it);}
 function subIns(){return state.ficha.insumos.reduce((t,i)=>t+itemTotal(i),0);}
@@ -385,7 +387,7 @@ function fichaRows(key,tbid){const tb=document.getElementById(tbid);tb.innerHTML
     tr.innerHTML=`<td><input value="${esc(it.nome)}" data-k="${key}" data-i="${i}" data-f="nome"></td>
       <td class="ctr"><select style="max-width:104px" data-k="${key}" data-i="${i}" data-f="un">${unitOptions(it.un)}</select></td>
       <td class="num"><input class="w-money in" type="number" inputmode="decimal" step="0.01" value="${it.pacotePreco!=null?it.pacotePreco:''}" data-k="${key}" data-i="${i}" data-f="pacotePreco"></td>
-      <td class="num"><span class="pacqwrap"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.pacoteQtd!=null?it.pacoteQtd:''}" data-k="${key}" data-i="${i}" data-f="pacoteQtd"><select class="usel" data-k="${key}" data-i="${i}" data-f="pacoteUn">${unitOptions(it.pacoteUn||it.un)}</select></span></td>
+      <td class="num"><span class="pacqwrap"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.pacoteQtd!=null?it.pacoteQtd:''}" data-k="${key}" data-i="${i}" data-f="pacoteQtd"><select class="usel" data-k="${key}" data-i="${i}" data-f="pacoteUn">${unitOptions(it.pacoteUn||it.un,compatUnits(it.un))}</select></span></td>
       <td class="num"><input class="w-qty in" type="number" inputmode="decimal" step="any" value="${it.qtd}" data-k="${key}" data-i="${i}" data-f="qtd"></td>
       <td class="num tot">${brl(itemTotal(it))}</td>
       <td><button class="iconbtn" title="Remover" onclick="delRow('${key}',${i})">✕</button></td>`;
@@ -518,7 +520,7 @@ function render(){
   renderDetalhe();updateMargemRef();save();
 }
 function onTableInput(e){userTouched=true;const t=e.target;if(t.tagName!=="INPUT"&&t.tagName!=="SELECT")return;
-  if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un"||f==="pacoteUn")?t.value:+t.value;}
+  if(t.dataset.k!=null){const it=state.ficha[t.dataset.k][+t.dataset.i];const f=t.dataset.f;it[f]=(f==="nome"||f==="un"||f==="pacoteUn")?t.value:+t.value;if(f==="un"){if(!unitsCompatible(it.pacoteUn||it.un,it.un))it.pacoteUn=it.un;save();render();return;}}
   else if(t.dataset.c!=null){const c=state.canais.lista[+t.dataset.c];const f=t.dataset.f;
     if(f==="praticado"){var dg=t.value.replace(/\D/g,"");var nv=dg?parseInt(dg,10)/100:0;c.praticado=nv;t.value=nv>0?nv.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"";}
     else c[f]=(f==="nome")?t.value:+t.value;}
