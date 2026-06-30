@@ -321,7 +321,7 @@ const QRDATA="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyCAIAAABnRsZe
 const brl=n=>isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"—";
 const pct=n=>isFinite(n)?(n*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%":"—";
 const num=n=>isFinite(n)?Math.round(n).toLocaleString("pt-BR"):"—";
-const UNITS=["un","g","kg","mg","ml","L","fatia","porção","lata","pacote","dúzia","colher (sopa)","colher (chá)","xícara"];
+const UNITS=["un","g","kg","mg","ml","L","dúzia","porção","lata","pacote"];
 function unitOptions(cur){var u=UNITS.slice();if(cur&&u.indexOf(cur)<0)u.unshift(cur);return u.map(function(x){return "<option"+(x===cur?" selected":"")+">"+esc(x)+"</option>";}).join("");}
 function hToHHMM(h){h=+h||0;var H=Math.floor(h),M=Math.round((h-H)*60);if(M===60){H++;M=0;}return String(H).padStart(2,"0")+":"+String(M).padStart(2,"0");}
 function hhmmToH(v){if(!v)return 0;var p=(""+v).split(":");return (+p[0]||0)+(+p[1]||0)/60;}
