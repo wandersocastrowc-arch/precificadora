@@ -678,7 +678,8 @@ function savePDF(){
 }
 document.addEventListener("input",onTableInput);
 document.addEventListener("change",onTableInput);
-document.addEventListener("focusin",function(e){var t=e.target;if(document.body.classList.contains("examplemode")&&t.matches&&t.matches(".panel input")&&!t.classList.contains("ed")&&!t.disabled){setTimeout(function(){try{t.select();}catch(_){}},0);}});
+document.addEventListener("focusin",function(e){var t=e.target;if(document.body.classList.contains("examplemode")&&t.matches&&t.matches(".panel input")&&!t.classList.contains("ed")&&!t.disabled&&t.value!==""){t.dataset.exval=t.value;t.dataset.exph=t.getAttribute("placeholder")||"";t.setAttribute("placeholder",t.value);t.value="";}});
+document.addEventListener("focusout",function(e){var t=e.target;if(t.dataset&&t.dataset.exval!=null){if(t.value==="")t.value=t.dataset.exval;if(t.dataset.exph)t.setAttribute("placeholder",t.dataset.exph);else t.removeAttribute("placeholder");delete t.dataset.exval;delete t.dataset.exph;}});
 bindInputs();render();updateProfileLabel();wrapTables();applyProfileTabs();setExampleMode(!userTouched);setTab("inicio");
 ["gesturestart","gesturechange","gestureend"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();},{passive:false});});
 document.addEventListener("touchmove",function(e){if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
